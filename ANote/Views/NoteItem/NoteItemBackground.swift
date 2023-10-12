@@ -8,54 +8,40 @@
 import SwiftUI
 
 struct NoteItemBackground: ViewModifier {
-    let background: NoteBackground
+    let index: Int
     func body(content: Content) -> some View {
         content
             .background{
-                if let image = background.image{
-                    Image(image)
-                        .resizable()
-                        .scaledToFill()
+                VStack{
+                    if index == 0 {
+                        Color("default")
+                    }
+                    else if let image = Backgrounds.backgrounds[index].image{
+                        Image(image)
+                            .resizable()
+                    }
+                    else if let color = Backgrounds.backgrounds[index].color{
+                        Color(hex: color)
+                    }
                 }
-                else if let color = background.color{
-                    getBackgroundColor(color: color)
-                }
+                .ignoresSafeArea()
+                .scaledToFill()
+                .animation(.easeInOut(duration: 0.3), value: index)
             }
     }
 }
 
 extension View {
-    func noteItemBackground(with background: NoteBackground) -> some View {
-        modifier(NoteItemBackground(background: background))
+    func noteItemBackground(with index: Int) -> some View {
+        modifier(NoteItemBackground(index: index))
     }
 }
 
 #Preview {
     VStack{
         Text("asdasd")
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,maxHeight: .infinity)
     }
-        .noteItemBackground(with: NoteBackground.bengal)
+    .noteItemBackground(with: 0)
 }
 
-func getBackgroundColor(color: String) -> some View{
-    switch color {
-    case "blue":
-        return Color.blue
-    case "red":
-        return Color.red
-    case "yellow":
-        return Color.yellow
-    case "pink":
-        return Color.pink
-    case "purple":
-        return Color.purple
-    case "orange":
-        return Color.orange
-    case "brown":
-        return Color.brown
-    case "mint":
-        return Color.mint
-    default:
-        return Color.gray
-    }
-}
