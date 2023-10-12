@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            NoteListItem(note: Note(title: "sadsad", content: "sadasd", createdAt: Date(), background: NoteBackground.astronaut))
+        NavigationStack{
+            VStack{
+                NavigationLink(destination: UpsertView(), label: {Text("sdsd")})
+            }
         }
-        .padding()
     }
 }
 

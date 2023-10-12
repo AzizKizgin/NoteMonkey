@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E0308E792AD5D72D00BFB79E /* UpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0308E782AD5D72D00BFB79E /* UpsertView.swift */; };
+		E0308E7C2AD5E6EB00BFB79E /* ContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0308E7B2AD5E6EB00BFB79E /* ContentEditor.swift */; };
+		E0308E7E2AD5EB2C00BFB79E /* BackgroundPickerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0308E7D2AD5EB2C00BFB79E /* BackgroundPickerList.swift */; };
+		E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06CE6A52AD6FA0B002441F4 /* Color.swift */; };
 		E0DFE83D2AD2EE61004C2499 /* ANoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */; };
 		E0DFE83F2AD2EE61004C2499 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE83E2AD2EE61004C2499 /* ContentView.swift */; };
 		E0DFE8412AD2EE62004C2499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0DFE8402AD2EE62004C2499 /* Assets.xcassets */; };
@@ -18,6 +22,7 @@
 		E0DFE8742AD30358004C2499 /* NoteBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8732AD30358004C2499 /* NoteBackground.swift */; };
 		E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8752AD3070F004C2499 /* NoteListItem.swift */; };
 		E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8772AD324F9004C2499 /* NoteItemBackground.swift */; };
+		E0FA61822AD8486A00B3EA8C /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E0308E782AD5D72D00BFB79E /* UpsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertView.swift; sourceTree = "<group>"; };
+		E0308E7B2AD5E6EB00BFB79E /* ContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEditor.swift; sourceTree = "<group>"; };
+		E0308E7D2AD5EB2C00BFB79E /* BackgroundPickerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPickerList.swift; sourceTree = "<group>"; };
+		E06CE6A52AD6FA0B002441F4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E0DFE8392AD2EE61004C2499 /* ANote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ANote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANoteApp.swift; sourceTree = "<group>"; };
 		E0DFE83E2AD2EE61004C2499 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +61,7 @@
 		E0DFE8732AD30358004C2499 /* NoteBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteBackground.swift; sourceTree = "<group>"; };
 		E0DFE8752AD3070F004C2499 /* NoteListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListItem.swift; sourceTree = "<group>"; };
 		E0DFE8772AD324F9004C2499 /* NoteItemBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItemBackground.swift; sourceTree = "<group>"; };
+		E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +89,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E0308E772AD5D69200BFB79E /* Upsert */ = {
+			isa = PBXGroup;
+			children = (
+				E0308E7A2AD5E22800BFB79E /* Views */,
+				E0308E782AD5D72D00BFB79E /* UpsertView.swift */,
+			);
+			path = Upsert;
+			sourceTree = "<group>";
+		};
+		E0308E7A2AD5E22800BFB79E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E0308E7B2AD5E6EB00BFB79E /* ContentEditor.swift */,
+				E0308E7D2AD5EB2C00BFB79E /* BackgroundPickerList.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E06CE6A42AD6F9FB002441F4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E06CE6A52AD6FA0B002441F4 /* Color.swift */,
+				E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		E0DFE8302AD2EE61004C2499 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +139,7 @@
 		E0DFE83B2AD2EE61004C2499 /* ANote */ = {
 			isa = PBXGroup;
 			children = (
+				E06CE6A42AD6F9FB002441F4 /* Resources */,
 				E0DFE86B2AD2F6D2004C2499 /* Views */,
 				E0DFE8692AD2F663004C2499 /* Scenes */,
 				E0DFE8662AD2EF00004C2499 /* Models */,
@@ -150,6 +188,7 @@
 		E0DFE8692AD2F663004C2499 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				E0308E772AD5D69200BFB79E /* Upsert */,
 				E0DFE86A2AD2F6AE004C2499 /* Home */,
 			);
 			path = Scenes;
@@ -309,12 +348,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0308E7C2AD5E6EB00BFB79E /* ContentEditor.swift in Sources */,
+				E0FA61822AD8486A00B3EA8C /* Backgrounds.swift in Sources */,
 				E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */,
 				E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */,
+				E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */,
 				E0DFE83F2AD2EE61004C2499 /* ContentView.swift in Sources */,
 				E0DFE83D2AD2EE61004C2499 /* ANoteApp.swift in Sources */,
+				E0308E7E2AD5EB2C00BFB79E /* BackgroundPickerList.swift in Sources */,
 				E0DFE8742AD30358004C2499 /* NoteBackground.swift in Sources */,
 				E0DFE8682AD2EF0D004C2499 /* Note.swift in Sources */,
+				E0308E792AD5D72D00BFB79E /* UpsertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
