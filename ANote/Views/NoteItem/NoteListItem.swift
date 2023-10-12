@@ -12,7 +12,7 @@ struct NoteListItem: View {
     var body: some View {
         VStack(spacing:10){
             Text("Note Title")
-                .lineLimit(2)
+                .lineLimit(1)
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .font(.title3)
                 .shadow(radius: 10)
@@ -20,7 +20,7 @@ struct NoteListItem: View {
             Text("Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet")
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .font(.subheadline)
-                .lineLimit(5)
+                .lineLimit(4)
                 .shadow(color: .black, radius: 10)
             Text("23.00")
                 .frame(maxWidth: .infinity,alignment: .leading)
@@ -29,7 +29,7 @@ struct NoteListItem: View {
 
         .frame(maxWidth: .infinity,minHeight: 50,alignment: .topLeading)
         .padding()
-        .noteItemBackground(with: .astronaut)
+        .noteItemBackground(with: 0)
         .foregroundStyle(.white)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
 
@@ -43,7 +43,7 @@ struct NoteListItem: View {
             content: "Lorem ipsum dolor sit amet",
             createdAt: Date(),
             isPinned: true,
-            background: NoteBackground.bengal
+            background: Backgrounds.backgrounds[0]
         )
     )
 }
