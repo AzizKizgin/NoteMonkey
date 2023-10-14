@@ -10,11 +10,11 @@ import SwiftUI
 struct UpsertView: View {
     @State private var title: String = ""
     @State private var content: String = "sadasdasfsdf sd"
-    @State private var showBackgroundList: Bool = false
+    @State private var showBackgroundList: Bool = true
     @State private var selectedBackground: Int = 0
     @State private var textColor: String = "defaultText"
     
-    @FocusState private var isFocused
+    @FocusState private var isFocused 
     var body: some View {
         NavigationStack{
             VStack{
@@ -32,11 +32,8 @@ struct UpsertView: View {
                 .onTapGesture {
                     showBackgroundList = false
                 }
-                if showBackgroundList {
-                    BackgroundPickerList(selectedBackground: $selectedBackground)
-                }
             }
-
+            .backgroundPickerList(with: $selectedBackground)
             .animation(.easeIn(duration: 0.2), value: showBackgroundList)
             .frame(maxHeight: .infinity,alignment: .top)
             .foregroundStyle(.white)
