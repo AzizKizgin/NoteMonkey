@@ -22,7 +22,10 @@
 		E0DFE8742AD30358004C2499 /* NoteBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8732AD30358004C2499 /* NoteBackground.swift */; };
 		E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8752AD3070F004C2499 /* NoteListItem.swift */; };
 		E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8772AD324F9004C2499 /* NoteItemBackground.swift */; };
+		E0ED54EF2ADAFACC0042C355 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ED54EE2ADAFACC0042C355 /* ImagePicker.swift */; };
+		E0ED54F12ADAFB220042C355 /* ImagePickerPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ED54F02ADAFB220042C355 /* ImagePickerPlaceHolder.swift */; };
 		E0FA61822AD8486A00B3EA8C /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */; };
+		E0FA61852AD8796500B3EA8C /* CreateThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA61842AD8796500B3EA8C /* CreateThemeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +64,10 @@
 		E0DFE8732AD30358004C2499 /* NoteBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteBackground.swift; sourceTree = "<group>"; };
 		E0DFE8752AD3070F004C2499 /* NoteListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListItem.swift; sourceTree = "<group>"; };
 		E0DFE8772AD324F9004C2499 /* NoteItemBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItemBackground.swift; sourceTree = "<group>"; };
+		E0ED54EE2ADAFACC0042C355 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		E0ED54F02ADAFB220042C355 /* ImagePickerPlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerPlaceHolder.swift; sourceTree = "<group>"; };
 		E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
+		E0FA61842AD8796500B3EA8C /* CreateThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +194,7 @@
 		E0DFE8692AD2F663004C2499 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				E0FA61832AD8794100B3EA8C /* CreateTheme */,
 				E0308E772AD5D69200BFB79E /* Upsert */,
 				E0DFE86A2AD2F6AE004C2499 /* Home */,
 			);
@@ -216,6 +223,24 @@
 				E0DFE8772AD324F9004C2499 /* NoteItemBackground.swift */,
 			);
 			path = NoteItem;
+			sourceTree = "<group>";
+		};
+		E0ED54ED2ADAFAA50042C355 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E0ED54EE2ADAFACC0042C355 /* ImagePicker.swift */,
+				E0ED54F02ADAFB220042C355 /* ImagePickerPlaceHolder.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E0FA61832AD8794100B3EA8C /* CreateTheme */ = {
+			isa = PBXGroup;
+			children = (
+				E0ED54ED2ADAFAA50042C355 /* Views */,
+				E0FA61842AD8796500B3EA8C /* CreateThemeView.swift */,
+			);
+			path = CreateTheme;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,9 +373,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0ED54EF2ADAFACC0042C355 /* ImagePicker.swift in Sources */,
 				E0308E7C2AD5E6EB00BFB79E /* ContentEditor.swift in Sources */,
 				E0FA61822AD8486A00B3EA8C /* Backgrounds.swift in Sources */,
+				E0FA61852AD8796500B3EA8C /* CreateThemeView.swift in Sources */,
 				E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */,
+				E0ED54F12ADAFB220042C355 /* ImagePickerPlaceHolder.swift in Sources */,
 				E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */,
 				E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */,
 				E0DFE83F2AD2EE61004C2499 /* ContentView.swift in Sources */,

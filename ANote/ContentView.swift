@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             VStack{
-                NavigationLink(destination: UpsertView(), label: {Text("sdsd")})
+                NavigationLink(destination: CreateThemeView(), label: {Text("sdsd")})
             }
         }
     }
