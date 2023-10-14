@@ -12,12 +12,12 @@ import SwiftData
 
 @Model
 class NoteBackground{
-    var id: Int
+    var id: String
     let image: String?
     let color: String?
     let textColor: String
     
-    init(id: Int, image: String? = nil, color: String? = nil, textColor: String = "#ffffff") {
+    init(id: String, image: String? = nil, color: String? = nil, textColor: String = "#ffffff") {
         self.id = id
         self.image = image
         self.color = color

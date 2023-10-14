@@ -29,7 +29,7 @@ struct NoteListItem: View {
 
         .frame(maxWidth: .infinity,minHeight: 50,alignment: .topLeading)
         .padding()
-        .noteItemBackground(with: 0)
+        .noteItemBackground(with: "0")
         .foregroundStyle(.white)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
 

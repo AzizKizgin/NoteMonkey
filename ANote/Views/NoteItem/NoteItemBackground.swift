@@ -8,32 +8,32 @@
 import SwiftUI
 
 struct NoteItemBackground: ViewModifier {
-    let index: Int
+    let id: String
     func body(content: Content) -> some View {
         content
             .background{
                 VStack{
-                    if index == 0 {
+                    if id == "0" {
                         Color("default")
                     }
-                    else if let image = Backgrounds.backgrounds[index].image{
+                    else if let image = Backgrounds.backgrounds.first(where: {$0.id == id})?.image{
                         Image(image)
                             .resizable()
                     }
-                    else if let color = Backgrounds.backgrounds[index].color{
+                    else if let color = Backgrounds.backgrounds.first(where: {$0.id == id})?.color{
                         Color(hex: color)
                     }
                 }
                 .ignoresSafeArea()
                 .scaledToFill()
-                .animation(.easeInOut(duration: 0.3), value: index)
+                .animation(.easeInOut(duration: 0.3), value: id)
             }
     }
 }
 
 extension View {
-    func noteItemBackground(with index: Int) -> some View {
-        modifier(NoteItemBackground(index: index))
+    func noteItemBackground(with id: String) -> some View {
+        modifier(NoteItemBackground(id: id))
     }
 }
 
@@ -42,6 +42,6 @@ extension View {
         Text("asdasd")
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,maxHeight: .infinity)
     }
-    .noteItemBackground(with: 0)
+    .noteItemBackground(with: "0")
 }
 

@@ -12,8 +12,7 @@ import SwiftData
 struct ANoteApp: App {
     let modelContainer : ModelContainer = {
         let schema = Schema([Note.self,NoteBackground.self])
-        let configurations = ModelConfiguration(schema:schema)
-        let container = try! ModelContainer(for: schema, configurations: configurations)
+        let container = try! ModelContainer(for: schema)
         return container
     }()
     var body: some Scene {

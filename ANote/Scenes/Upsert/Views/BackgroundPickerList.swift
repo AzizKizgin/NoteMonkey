@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct BackgroundPickerList: ViewModifier {
-    @Binding var selectedBackground: Int
+    @Binding var selectedBackground: String
     
-    private func setBackground(id: Int){
+    private func setBackground(id: String){
         if selectedBackground == id {
-            selectedBackground = 0
+            selectedBackground = "0"
         }
         else {
             selectedBackground = id
@@ -40,11 +40,11 @@ struct BackgroundPickerList: ViewModifier {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 35)
-                                                .foregroundStyle(background.id == 0 ? Color(hex:"defaultText") : .white )
+                                                .foregroundStyle(background.id == "0" ? Color(hex:"defaultText") : .white )
                                         }
                                     }
                                 }
-                                .border(background.id  == 0 ? .black: .white ,width: selectedBackground == background.id ? 5 : 0)
+                                .border(background.id  == "0" ? .black: .white ,width: selectedBackground == background.id ? 5 : 0)
                             })
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -73,7 +73,7 @@ struct BackgroundPickerList: ViewModifier {
 }
 
 extension View {
-    func backgroundPickerList(with index: Binding<Int>) -> some View {
+    func backgroundPickerList(with index: Binding<String>) -> some View {
         modifier(BackgroundPickerList(selectedBackground: index))
     }
 }
@@ -85,6 +85,6 @@ extension View {
             
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)
-        .backgroundPickerList(with: .constant(2))
+        .backgroundPickerList(with: .constant("2"))
     }
 }

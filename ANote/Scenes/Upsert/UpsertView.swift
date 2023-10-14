@@ -11,7 +11,7 @@ struct UpsertView: View {
     @State private var title: String = ""
     @State private var content: String = "sadasdasfsdf sd"
     @State private var showBackgroundList: Bool = true
-    @State private var selectedBackground: Int = 0
+    @State private var selectedBackground: String = "0"
     @State private var textColor: String = "defaultText"
     
     @FocusState private var isFocused 
@@ -54,7 +54,7 @@ struct UpsertView: View {
                 }
             }
             .onChange(of: selectedBackground){ _ , newIndex in
-                textColor = Backgrounds.backgrounds[newIndex].textColor
+                textColor = Backgrounds.backgrounds.first(where: {$0.id == selectedBackground})?.textColor ?? "defaultText"
             }
         }
     }

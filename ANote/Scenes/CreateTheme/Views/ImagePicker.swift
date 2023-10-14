@@ -47,7 +47,7 @@ struct ImagePicker: View {
                                     return
                                 }
                                 
-                                guard let image = UIImage(data: data) else {
+                                guard UIImage(data: data) != nil else {
                                     self.showError.toggle()
                                     return
                                 }
