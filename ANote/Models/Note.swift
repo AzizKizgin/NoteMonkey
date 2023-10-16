@@ -17,7 +17,7 @@ final class Note{
     var updatedAt: Date?
     var isPinned: Bool
     var isDeleted: Bool
-    @Relationship(deleteRule:.nullify) var background: NoteBackground
+    @Relationship(deleteRule:.nullify) var background: NoteBackground?
     
     init(
         id: UUID = UUID(),
@@ -27,7 +27,7 @@ final class Note{
         updatedAt: Date? = nil,
         isPinned: Bool = false,
         isDeleted: Bool = false,
-        background: NoteBackground
+        background: NoteBackground? = nil
     ) {
         self.id = id
         self.title = title
