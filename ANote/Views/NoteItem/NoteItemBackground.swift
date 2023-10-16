@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NoteItemBackground: ViewModifier {
     let id: String
+    let isFullScreen: Bool
     func body(content: Content) -> some View {
         content
             .background{
@@ -17,31 +18,38 @@ struct NoteItemBackground: ViewModifier {
                         Color("default")
                     }
                     else if let image = Backgrounds.backgrounds.first(where: {$0.id == id})?.image{
-                        Image(image)
-                            .resizable()
+                        if isFullScreen{
+                            Image(image)
+                                .resizable(resizingMode: .stretch)
+                                .scaledToFill()
+                        }
+                        else{
+                            Image(image)
+                                .resizable(resizingMode: .tile)
+                        }
                     }
                     else if let color = Backgrounds.backgrounds.first(where: {$0.id == id})?.color{
                         Color(hex: color)
                     }
                 }
                 .ignoresSafeArea()
-                .scaledToFill()
+                
                 .animation(.easeInOut(duration: 0.3), value: id)
             }
     }
 }
 
 extension View {
-    func noteItemBackground(with id: String) -> some View {
-        modifier(NoteItemBackground(id: id))
+    func noteItemBackground(with id: String, isFullScreen: Bool) -> some View {
+        modifier(NoteItemBackground(id: id,isFullScreen: isFullScreen))
     }
 }
 
 #Preview {
     VStack{
-        Text("asdasd")
+        Text("s")
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,maxHeight: .infinity)
     }
-    .noteItemBackground(with: "0")
+    .noteItemBackground(with: "1",isFullScreen: false)
 }
 

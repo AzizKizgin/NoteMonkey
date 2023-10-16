@@ -37,7 +37,7 @@ struct UpsertView: View {
             .animation(.easeIn(duration: 0.2), value: showBackgroundList)
             .frame(maxHeight: .infinity,alignment: .top)
             .foregroundStyle(.white)
-            .noteItemBackground(with: selectedBackground)
+            .noteItemBackground(with: selectedBackground,isFullScreen: true)
             .ignoresSafeArea(.keyboard)
             .toolbar{
                 ToolbarItem(placement:.topBarTrailing){
