@@ -15,6 +15,27 @@ struct CreateThemeView: View {
     @State private var showPreview: Bool = false
     var body: some View {
         VStack{
+            HStack{
+                Button {
+                    showPreview.toggle()
+                } label: {
+                    if showPreview {
+                        Text("Hide Preview")
+                    }
+                    else {
+                        Text("Show Preview")
+                    }
+                }
+                .foregroundStyle(Color.accentColor)
+                Spacer()
+                Button {
+    
+                } label: {
+                    Text("Save")
+                }
+                .foregroundStyle(Color.accentColor)
+            }
+            .padding(.horizontal)
             if !showPreview{
                 ColorPicker(selection: $color){
                     Text("Text Color")
@@ -73,35 +94,6 @@ struct CreateThemeView: View {
                 }
                 else{
                     ImagePicker(imageData: $imageData, selectedImage: $selectedImage)
-                }
-            }
-            .toolbar{
-                ToolbarItem(placement: .topBarLeading){
-                    Button {
-                        showPreview.toggle()
-                    } label: {
-                        if showPreview {
-                            Text("Hide Preview")
-                        }
-                        else {
-                            Text("Show Preview")
-                        }
-                    }
-                    .foregroundStyle(.white)
-                    .buttonBorderShape(.roundedRectangle(radius: .infinity))
-                    .buttonStyle(.borderedProminent)
-                    .tint(.accentColor)
-                }
-                ToolbarItem(placement: .topBarTrailing){
-                    Button {
-        
-                    } label: {
-                        Text("Save")
-                    }
-                    .foregroundStyle(.white)
-                    .buttonBorderShape(.roundedRectangle(radius: .infinity))
-                    .buttonStyle(.borderedProminent)
-                    .tint(.accentColor)
                 }
             }
             .foregroundStyle(color)
