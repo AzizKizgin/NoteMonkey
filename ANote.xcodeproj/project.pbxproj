@@ -11,6 +11,9 @@
 		E0308E7C2AD5E6EB00BFB79E /* ContentEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0308E7B2AD5E6EB00BFB79E /* ContentEditor.swift */; };
 		E0308E7E2AD5EB2C00BFB79E /* BackgroundPickerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0308E7D2AD5EB2C00BFB79E /* BackgroundPickerList.swift */; };
 		E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06CE6A52AD6FA0B002441F4 /* Color.swift */; };
+		E0896F0B2ADC786E00B4F57C /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0896F0A2ADC786E00B4F57C /* NoteButton.swift */; };
+		E0CC95972ADC55AD00C1AF4A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95962ADC55AD00C1AF4A /* HomeView.swift */; };
+		E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */; };
 		E0DFE83D2AD2EE61004C2499 /* ANoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */; };
 		E0DFE83F2AD2EE61004C2499 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE83E2AD2EE61004C2499 /* ContentView.swift */; };
 		E0DFE8412AD2EE62004C2499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0DFE8402AD2EE62004C2499 /* Assets.xcassets */; };
@@ -50,6 +53,9 @@
 		E0308E7B2AD5E6EB00BFB79E /* ContentEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEditor.swift; sourceTree = "<group>"; };
 		E0308E7D2AD5EB2C00BFB79E /* BackgroundPickerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPickerList.swift; sourceTree = "<group>"; };
 		E06CE6A52AD6FA0B002441F4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		E0896F0A2ADC786E00B4F57C /* NoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
+		E0CC95962ADC55AD00C1AF4A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenu.swift; sourceTree = "<group>"; };
 		E0DFE8392AD2EE61004C2499 /* ANote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ANote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANoteApp.swift; sourceTree = "<group>"; };
 		E0DFE83E2AD2EE61004C2499 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +126,14 @@
 				E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E0CC95982ADC730900C1AF4A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E0DFE8302AD2EE61004C2499 = {
@@ -204,6 +218,8 @@
 		E0DFE86A2AD2F6AE004C2499 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E0CC95982ADC730900C1AF4A /* View */,
+				E0CC95962ADC55AD00C1AF4A /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -212,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				E0DFE86C2AD2F6DC004C2499 /* NoteItem */,
+				E0896F0A2ADC786E00B4F57C /* NoteButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -376,10 +393,13 @@
 				E0ED54EF2ADAFACC0042C355 /* ImagePicker.swift in Sources */,
 				E0308E7C2AD5E6EB00BFB79E /* ContentEditor.swift in Sources */,
 				E0FA61822AD8486A00B3EA8C /* Backgrounds.swift in Sources */,
+				E0CC95972ADC55AD00C1AF4A /* HomeView.swift in Sources */,
 				E0FA61852AD8796500B3EA8C /* CreateThemeView.swift in Sources */,
 				E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */,
 				E0ED54F12ADAFB220042C355 /* ImagePickerPlaceHolder.swift in Sources */,
+				E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */,
 				E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */,
+				E0896F0B2ADC786E00B4F57C /* NoteButton.swift in Sources */,
 				E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */,
 				E0DFE83F2AD2EE61004C2499 /* ContentView.swift in Sources */,
 				E0DFE83D2AD2EE61004C2499 /* ANoteApp.swift in Sources */,

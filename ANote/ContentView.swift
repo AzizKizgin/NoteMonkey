@@ -10,9 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationStack{
-            VStack{
-                NavigationLink(destination: CreateThemeView(), label: {Text("sdsd")})
-            }
+            HomeView()
         }
     }
 }
