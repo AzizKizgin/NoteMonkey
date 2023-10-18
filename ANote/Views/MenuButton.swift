@@ -10,13 +10,21 @@ import SwiftUI
 struct MenuButton: View {
     let iconName: String
     let onPress: () -> Void
+    let size: CGFloat
+    
+    init(iconName: String, onPress: @escaping () -> Void, size: CGFloat = 25) {
+        self.iconName = iconName
+        self.onPress = onPress
+        self.size = size
+    }
     var body: some View {
         Button(action: onPress, label: {
             Image(systemName: iconName)
-                .font(.system(size: 25))
+                .font(.system(size: size))
         })
-        .frame(width: 30)
+        .frame(width: 30,height: 30)
         .buttonStyle(.plain)
+        .foregroundStyle(Color.accentColor)
     }
 }
 
