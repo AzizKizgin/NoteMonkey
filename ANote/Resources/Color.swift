@@ -11,7 +11,7 @@ import SwiftUI
 extension Color {
     init(hex: String) {
         if hex == "item" {
-            self.init(hex)
+            self.init(Color.item)
             return
         }
         else if hex == "default"{
