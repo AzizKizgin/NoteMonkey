@@ -40,7 +40,7 @@ struct BackgroundPickerList: ViewModifier {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 35)
-                                                .foregroundStyle(background.id == "0" ? Color(hex:"defaultText") : .white )
+                                                .foregroundStyle(background.id == "0" ? Color(hex:"item") : .white )
                                         }
                                     }
                                 }
