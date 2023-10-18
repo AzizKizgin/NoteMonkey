@@ -17,7 +17,7 @@ struct NoteButton: ButtonStyle {
 
 #Preview {
     Button(action: {}, label: {
-       NoteListItem(note: Note(title: "s", content: "s", createdAt: Date()),onLongPress: {},showSelectButton: false, isSelected: false)
+       NoteListItem(note: Note(title: "s", content: "s", createdAt: Date()),onLongPress: {},showSelectButton: false, isSelected: false,isListView: true)
     })
     .buttonStyle(NoteButton())
 }
