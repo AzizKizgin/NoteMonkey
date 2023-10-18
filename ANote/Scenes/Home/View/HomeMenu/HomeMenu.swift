@@ -20,19 +20,19 @@ struct HomeMenu: View {
             if !showSelectionMenu{
                 HStack{
                     Spacer()
-                    Button(action: {}, label: {
-                        Image(systemName: "gear")
-                            .font(.system(size: 25))
-                    })
+                    MenuLinkButton(iconName: "gear"){
+                        SettingsView()
+                    }
                 }
                 .overlay(alignment: .center){
                     HStack(spacing:20){
                         MenuButton(iconName: isListView ? "square.grid.2x2" : "list.bullet.rectangle.portrait", onPress: {
                             onChangeListType()
                             isListView.toggle()
-                            isAllSelected.toggle()
                         })
-                        MenuButton(iconName: "arrow.up.trash", onPress: {})
+                        MenuLinkButton(iconName: "arrow.up.trash") {
+                            DeletedNotesView()
+                        }
                     }
                 }
             }
@@ -42,25 +42,33 @@ struct HomeMenu: View {
                         onCancelSelect()
                     })
                     Spacer()
-                    if selectedItemCount == 0 {
-                        Text("Select Items")
+                    Group{
+                        if selectedItemCount == 0 {
+                            Text("Select Items")
+                        }
+                        else{
+                            Text("^[\(selectedItemCount) item](inflect: true)")
+                        }
                     }
-                    else{
-                        Text("^[\(selectedItemCount) item](inflect: true)")
-                    }
+                    .foregroundStyle(Color.accentColor)
                     Spacer()
                     MenuButton(iconName: "checkmark.rectangle.stack", onPress: {
                         onSelectAll()
                         isAllSelected.toggle()
                     })
-                        .foregroundStyle(isAllSelected ? Color.accentColor: .item)
+                    .foregroundStyle(isAllSelected ? .green : Color.accentColor)
                 }
             }
         }
         .foregroundStyle(.item)
+        .padding(.vertical,5)
+        .padding(.horizontal)
+        .transition(.move(edge: .top).combined(with: .opacity))
     }
 }
 
 #Preview {
-    HomeMenu(showSelectionMenu:true,selectedItemCount: 2,onCancelSelect: {},onSelectAll: {},onChangeListType: {})
+    NavigationStack{
+        HomeMenu(showSelectionMenu:false,selectedItemCount: 2,onCancelSelect: {},onSelectAll: {},onChangeListType: {})
+    }
 }
