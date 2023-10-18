@@ -13,6 +13,7 @@ struct NoteListItem: View {
     let showSelectButton: Bool
     let isSelected: Bool
     let isListView: Bool
+    @State private var goDetail: Bool = false
     var body: some View {
         Button(action: {
             
@@ -59,7 +60,6 @@ struct NoteListItem: View {
                 .onEnded { _ in
                     onLongPress()
                 }
-
         )
         .highPriorityGesture(
             TapGesture()
@@ -67,24 +67,20 @@ struct NoteListItem: View {
                     if showSelectButton {
                         onLongPress()
                     }
+                    else{
+                        goDetail.toggle()
+                    }
                 }
         )
         .buttonStyle(NoteButton())
+        .navigationDestination(isPresented: $goDetail, destination: {
+            UpsertView()
+        })
     }
 }
 
 #Preview {
-    NoteListItem(
-        note: Note(
-            title: "Note Title",
-            content: "Lorem ipsum dolor sit amet",
-            createdAt: Date(),
-            isPinned: true,
-            background: Backgrounds.backgrounds[0]
-        ),
-        onLongPress: {},
-        showSelectButton: true,
-        isSelected: true,
-        isListView: false
-    )
+    NavigationStack{
+        TestNoteView()
+    }
 }
