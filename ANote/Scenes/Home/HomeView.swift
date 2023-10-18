@@ -25,9 +25,6 @@ struct HomeView: View {
                 onSelectAll: onSelectAll,
                 onChangeListType: onChangeListType
             )
-            .padding(.vertical,5)
-            .padding(.horizontal)
-            .transition(.move(edge: .top).combined(with: .opacity))
             if showFab && !showSelectionMenu {
                 SearchBar(text: $searchText, placeHolder: "Search Notes...")
             }
@@ -49,7 +46,6 @@ struct HomeView: View {
                             }
                             .padding(.horizontal, isListView ? 20 : 0)
                             .transition(.move(edge: .leading).combined(with: .opacity))
-                            .transition(.identity.combined(with: .opacity))
                         }
                         else{
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))]){
@@ -71,21 +67,9 @@ struct HomeView: View {
            
                 }
             }
-            .coordinateSpace(name: "scroll")
             .overlay(alignment: .bottomTrailing){
-                !showSelectionMenu && showFab ? Button(action: {}, label: {
-                    Image(systemName: "plus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 20)
-                        .padding()
-                })
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.circle)
-                .padding(.vertical,30)
-                .padding(.horizontal)
+                !showSelectionMenu && showFab ? AddFabButton()
                 :nil
-                
             }
         }
         .animation(.easeInOut(duration: 0.2),value: selectedNotes)
