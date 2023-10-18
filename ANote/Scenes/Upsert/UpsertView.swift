@@ -10,10 +10,9 @@ import SwiftUI
 struct UpsertView: View {
     @State private var title: String = ""
     @State private var content: String = "sadasdasfsdf sd"
-    @State private var showBackgroundList: Bool = true
+    @State private var showBackgroundList: Bool = false
     @State private var selectedBackground: String = "0"
     @State private var textColor: String = "item"
-    
     @FocusState private var isFocused 
     var body: some View {
         NavigationStack{
@@ -33,7 +32,7 @@ struct UpsertView: View {
                     showBackgroundList = false
                 }
             }
-            .backgroundPickerList(with: $selectedBackground)
+            .backgroundPickerList(with: $selectedBackground, isVisible: showBackgroundList)
             .animation(.easeIn(duration: 0.2), value: showBackgroundList)
             .frame(maxHeight: .infinity,alignment: .top)
             .foregroundStyle(.white)
@@ -42,12 +41,9 @@ struct UpsertView: View {
             .toolbar{
                 ToolbarItem(placement:.topBarTrailing){
                     HStack(spacing:20){
-                        Image(systemName: "square.and.arrow.up")
-                        Image(systemName: "paintbrush")
-                            .onTapGesture {
-                                showBackgroundList.toggle()
-                            }
-                        Image(systemName: "trash")
+                        MenuButton(iconName: "square.and.arrow.up", onPress: onShare, size: 20)
+                        MenuButton(iconName: "paintbrush", onPress: toggleBackgroundList, size: 20)
+                        MenuButton(iconName: "trash", onPress: onDelete, size: 20)
                     }
                     .foregroundStyle(Color(hex:textColor))
                     .padding(.horizontal)
@@ -58,7 +54,20 @@ struct UpsertView: View {
             }
         }
     }
+}
+
+extension UpsertView{
+    private func toggleBackgroundList(){
+        showBackgroundList.toggle()
+    }
     
+    private func onDelete(){
+        
+    }
+    
+    private func onShare(){
+        
+    }
 }
 
 #Preview {
