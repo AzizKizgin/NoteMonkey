@@ -12,6 +12,7 @@ struct NoteListItem: View {
     let onLongPress: () -> Void
     let showSelectButton: Bool
     let isSelected: Bool
+    let isListView: Bool
     var body: some View {
         Button(action: {
             
@@ -26,7 +27,7 @@ struct NoteListItem: View {
                 Text("Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet")
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .font(.subheadline)
-                    .lineLimit(4)
+                    .lineLimit(isListView ? 4 : 10)
                     .shadow(color: .black, radius: 10)
                 Text("23.00")
                     .frame(maxWidth: .infinity,alignment: .leading)
@@ -83,6 +84,7 @@ struct NoteListItem: View {
         ),
         onLongPress: {},
         showSelectButton: true,
-        isSelected: true
+        isSelected: true,
+        isListView: false
     )
 }
