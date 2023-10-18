@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BackgroundPickerList: ViewModifier {
     @Binding var selectedBackground: String
-    
+    let isVisible: Bool
     private func setBackground(id: String){
         if selectedBackground == id {
             selectedBackground = "0"
@@ -21,60 +21,62 @@ struct BackgroundPickerList: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .bottom){
-                ScrollView(.horizontal){
-                    LazyHStack{
-                        ForEach(Backgrounds.backgrounds, id: \.self) { background in
-                            Button(action: {setBackground(id: background.id)}, label: {
-                                VStack{
-                                    if let image = background.image {
-                                        Image(image)
-                                            .resizable()
-                                            .frame(width: 125,height: 200)
-                                            .scaledToFill()
-                                    }
-                                    else {
-                                        ZStack{
-                                            Color(hex:background.color ?? "default")
-                                                .frame(width: 125,height: 200)
-                                            Image(systemName: "text.justifyleft")
+                if isVisible {
+                    ScrollView(.horizontal){
+                        LazyHStack{
+                            ForEach(Backgrounds.backgrounds, id: \.self) { background in
+                                Button(action: {setBackground(id: background.id)}, label: {
+                                    VStack{
+                                        if let image = background.image {
+                                            Image(image)
                                                 .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 35)
-                                                .foregroundStyle(background.id == "0" ? Color(hex:"item") : .white )
+                                                .frame(width: 125,height: 200)
+                                                .scaledToFill()
+                                        }
+                                        else {
+                                            ZStack{
+                                                Color(hex:background.color ?? "default")
+                                                    .frame(width: 125,height: 200)
+                                                Image(systemName: "text.justifyleft")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 35)
+                                                    .foregroundStyle(background.id == "0" ? Color(hex:"item") : .white )
+                                            }
                                         }
                                     }
+                                    .border(background.id  == "0" ? .black: .white ,width: selectedBackground == background.id ? 5 : 0)
+                                })
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                            NavigationLink(destination: CreateThemeView()){
+                                ZStack{
+                                    Color.black
+                                        .frame(width: 125,height: 200)
+                                        .opacity(0.2)
+                                    Image(systemName: "plus")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 35)
+                                        .foregroundStyle(Color.black.opacity(0.5))
                                 }
-                                .border(background.id  == "0" ? .black: .white ,width: selectedBackground == background.id ? 5 : 0)
-                            })
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                        NavigationLink(destination: Text("sdsad")){
-                            ZStack{
-                                Color.black
-                                    .frame(width: 125,height: 200)
-                                    .opacity(0.2)
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 35)
-                                    .foregroundStyle(Color.black.opacity(0.5))
                             }
                         }
+                       
+                        .fixedSize()
+                        .padding(10)
+                        .background(Color.accentColor)
                     }
-                   
-                    .fixedSize()
-                    .padding(10)
-                    .background(Color.accentColor)
+                    .frame(height: 170)
+                    .padding(.bottom,10)
                 }
-                .frame(height: 170)
-                .padding(.bottom,10)
             }
     }
 }
 
 extension View {
-    func backgroundPickerList(with index: Binding<String>) -> some View {
-        modifier(BackgroundPickerList(selectedBackground: index))
+    func backgroundPickerList(with index: Binding<String>, isVisible: Bool) -> some View {
+        modifier(BackgroundPickerList(selectedBackground: index,isVisible: isVisible))
     }
 }
 
@@ -85,6 +87,6 @@ extension View {
             
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)
-        .backgroundPickerList(with: .constant("2"))
+        .backgroundPickerList(with: .constant("2"),isVisible: true)
     }
 }
