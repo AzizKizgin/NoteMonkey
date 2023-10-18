@@ -13,6 +13,13 @@
 		E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06CE6A52AD6FA0B002441F4 /* Color.swift */; };
 		E07D92852ADEDCBC004CC21D /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D92842ADEDCBC004CC21D /* MenuButton.swift */; };
 		E08783C22AE02BE30095A78F /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783C12AE02BE30095A78F /* SearchBar.swift */; };
+		E08783C52AE031360095A78F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783C42AE031360095A78F /* SettingsView.swift */; };
+		E08783CA2AE036850095A78F /* TestItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783C92AE036850095A78F /* TestItems.swift */; };
+		E08783CC2AE044390095A78F /* TestNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783CB2AE044390095A78F /* TestNoteView.swift */; };
+		E08783CE2AE04C880095A78F /* MenuLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783CD2AE04C880095A78F /* MenuLinkButton.swift */; };
+		E08783D12AE04FE40095A78F /* DeletedNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783D02AE04FE40095A78F /* DeletedNotesView.swift */; };
+		E08783D32AE051D40095A78F /* AddFabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783D22AE051D40095A78F /* AddFabButton.swift */; };
+		E08783D72AE05FB50095A78F /* DeletedNotesMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783D62AE05FB50095A78F /* DeletedNotesMenu.swift */; };
 		E0896F0B2ADC786E00B4F57C /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0896F0A2ADC786E00B4F57C /* NoteButton.swift */; };
 		E0CC95972ADC55AD00C1AF4A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95962ADC55AD00C1AF4A /* HomeView.swift */; };
 		E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */; };
@@ -57,6 +64,13 @@
 		E06CE6A52AD6FA0B002441F4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E07D92842ADEDCBC004CC21D /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		E08783C12AE02BE30095A78F /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		E08783C42AE031360095A78F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E08783C92AE036850095A78F /* TestItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestItems.swift; sourceTree = "<group>"; };
+		E08783CB2AE044390095A78F /* TestNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNoteView.swift; sourceTree = "<group>"; };
+		E08783CD2AE04C880095A78F /* MenuLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLinkButton.swift; sourceTree = "<group>"; };
+		E08783D02AE04FE40095A78F /* DeletedNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedNotesView.swift; sourceTree = "<group>"; };
+		E08783D22AE051D40095A78F /* AddFabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFabButton.swift; sourceTree = "<group>"; };
+		E08783D62AE05FB50095A78F /* DeletedNotesMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedNotesMenu.swift; sourceTree = "<group>"; };
 		E0896F0A2ADC786E00B4F57C /* NoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
 		E0CC95962ADC55AD00C1AF4A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenu.swift; sourceTree = "<group>"; };
@@ -128,6 +142,8 @@
 			children = (
 				E06CE6A52AD6FA0B002441F4 /* Color.swift */,
 				E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */,
+				E08783C92AE036850095A78F /* TestItems.swift */,
+				E08783CB2AE044390095A78F /* TestNoteView.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -138,6 +154,31 @@
 				E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */,
 			);
 			path = HomeMenu;
+			sourceTree = "<group>";
+		};
+		E08783C32AE0311C0095A78F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E08783C42AE031360095A78F /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E08783CF2AE04FCF0095A78F /* DeletedNotes */ = {
+			isa = PBXGroup;
+			children = (
+				E08783D52AE05FA00095A78F /* View */,
+				E08783D02AE04FE40095A78F /* DeletedNotesView.swift */,
+			);
+			path = DeletedNotes;
+			sourceTree = "<group>";
+		};
+		E08783D52AE05FA00095A78F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E08783D62AE05FB50095A78F /* DeletedNotesMenu.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E0CC95982ADC730900C1AF4A /* View */ = {
@@ -220,6 +261,8 @@
 		E0DFE8692AD2F663004C2499 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				E08783CF2AE04FCF0095A78F /* DeletedNotes */,
+				E08783C32AE0311C0095A78F /* Settings */,
 				E0FA61832AD8794100B3EA8C /* CreateTheme */,
 				E0308E772AD5D69200BFB79E /* Upsert */,
 				E0DFE86A2AD2F6AE004C2499 /* Home */,
@@ -243,6 +286,8 @@
 				E0896F0A2ADC786E00B4F57C /* NoteButton.swift */,
 				E07D92842ADEDCBC004CC21D /* MenuButton.swift */,
 				E08783C12AE02BE30095A78F /* SearchBar.swift */,
+				E08783CD2AE04C880095A78F /* MenuLinkButton.swift */,
+				E08783D22AE051D40095A78F /* AddFabButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -406,12 +451,19 @@
 			files = (
 				E0ED54EF2ADAFACC0042C355 /* ImagePicker.swift in Sources */,
 				E0308E7C2AD5E6EB00BFB79E /* ContentEditor.swift in Sources */,
+				E08783CA2AE036850095A78F /* TestItems.swift in Sources */,
 				E0FA61822AD8486A00B3EA8C /* Backgrounds.swift in Sources */,
 				E0CC95972ADC55AD00C1AF4A /* HomeView.swift in Sources */,
 				E0FA61852AD8796500B3EA8C /* CreateThemeView.swift in Sources */,
+				E08783D72AE05FB50095A78F /* DeletedNotesMenu.swift in Sources */,
+				E08783CE2AE04C880095A78F /* MenuLinkButton.swift in Sources */,
+				E08783C52AE031360095A78F /* SettingsView.swift in Sources */,
+				E08783D32AE051D40095A78F /* AddFabButton.swift in Sources */,
+				E08783CC2AE044390095A78F /* TestNoteView.swift in Sources */,
 				E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */,
 				E0ED54F12ADAFB220042C355 /* ImagePickerPlaceHolder.swift in Sources */,
 				E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */,
+				E08783D12AE04FE40095A78F /* DeletedNotesView.swift in Sources */,
 				E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */,
 				E0896F0B2ADC786E00B4F57C /* NoteButton.swift in Sources */,
 				E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */,
