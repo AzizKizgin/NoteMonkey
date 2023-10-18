@@ -10,7 +10,7 @@ import SwiftUI
 
 extension Color {
     init(hex: String) {
-        if hex == "defaultText" {
+        if hex == "item" {
             self.init(hex)
             return
         }
