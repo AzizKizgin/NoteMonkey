@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct UpsertView: View {
+    let note: Note?
     @State private var title: String = ""
     @State private var content: String = "sadasdasfsdf sd"
     @State private var showBackgroundList: Bool = false
     @State private var selectedBackground: String = "0"
-    @State private var textColor: String = "item"
-    @FocusState private var isFocused 
+    @State private var textColor: String = "text"
+    @FocusState private var isFocused
+    
+    init(note: Note? = nil) {
+        self.note = note
+    }
     var body: some View {
         NavigationStack{
             VStack{
@@ -41,7 +46,7 @@ struct UpsertView: View {
             .toolbar{
                 ToolbarItem(placement:.topBarTrailing){
                     HStack(spacing:20){
-                        MenuButton(iconName: "square.and.arrow.up", onPress: onShare, size: 20)
+                        ShareNoteButton(title: title, content: content)
                         MenuButton(iconName: "paintbrush", onPress: toggleBackgroundList, size: 20)
                         MenuButton(iconName: "trash", onPress: onDelete, size: 20)
                     }
@@ -50,7 +55,12 @@ struct UpsertView: View {
                 }
             }
             .onChange(of: selectedBackground){ _ , newIndex in
-                textColor = Backgrounds.backgrounds.first(where: {$0.id == selectedBackground})?.textColor ?? "item"
+                textColor = Backgrounds.backgrounds.first(where: {$0.id == selectedBackground})?.textColor ?? "text"
+            }
+            .onAppear{
+                self.title = note?.title ?? ""
+                self.content = note?.content ?? ""
+                self.selectedBackground = note?.background?.id ?? "2"
             }
         }
     }
