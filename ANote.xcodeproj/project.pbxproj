@@ -21,6 +21,9 @@
 		E08783D32AE051D40095A78F /* AddFabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783D22AE051D40095A78F /* AddFabButton.swift */; };
 		E08783D72AE05FB50095A78F /* DeletedNotesMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08783D62AE05FB50095A78F /* DeletedNotesMenu.swift */; };
 		E0896F0B2ADC786E00B4F57C /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0896F0A2ADC786E00B4F57C /* NoteButton.swift */; };
+		E0987D992AE169830007881B /* ShareNoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0987D982AE169830007881B /* ShareNoteButton.swift */; };
+		E0987D9F2AE18A040007881B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0987D9E2AE18A040007881B /* Helpers.swift */; };
+		E0987DA12AE18D870007881B /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0987DA02AE18D870007881B /* Calendar.swift */; };
 		E0CC95972ADC55AD00C1AF4A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95962ADC55AD00C1AF4A /* HomeView.swift */; };
 		E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */; };
 		E0DFE83D2AD2EE61004C2499 /* ANoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */; };
@@ -72,6 +75,9 @@
 		E08783D22AE051D40095A78F /* AddFabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFabButton.swift; sourceTree = "<group>"; };
 		E08783D62AE05FB50095A78F /* DeletedNotesMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedNotesMenu.swift; sourceTree = "<group>"; };
 		E0896F0A2ADC786E00B4F57C /* NoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
+		E0987D982AE169830007881B /* ShareNoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareNoteButton.swift; sourceTree = "<group>"; };
+		E0987D9E2AE18A040007881B /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		E0987DA02AE18D870007881B /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		E0CC95962ADC55AD00C1AF4A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenu.swift; sourceTree = "<group>"; };
 		E0DFE8392AD2EE61004C2499 /* ANote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ANote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +150,7 @@
 				E0FA61812AD8486A00B3EA8C /* Backgrounds.swift */,
 				E08783C92AE036850095A78F /* TestItems.swift */,
 				E08783CB2AE044390095A78F /* TestNoteView.swift */,
+				E0987DA02AE18D870007881B /* Calendar.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -181,6 +188,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E0987D9A2AE189BB0007881B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E0987D9E2AE18A040007881B /* Helpers.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E0CC95982ADC730900C1AF4A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +227,7 @@
 		E0DFE83B2AD2EE61004C2499 /* ANote */ = {
 			isa = PBXGroup;
 			children = (
+				E0987D9A2AE189BB0007881B /* Utils */,
 				E06CE6A42AD6F9FB002441F4 /* Resources */,
 				E0DFE86B2AD2F6D2004C2499 /* Views */,
 				E0DFE8692AD2F663004C2499 /* Scenes */,
@@ -288,6 +304,7 @@
 				E08783C12AE02BE30095A78F /* SearchBar.swift */,
 				E08783CD2AE04C880095A78F /* MenuLinkButton.swift */,
 				E08783D22AE051D40095A78F /* AddFabButton.swift */,
+				E0987D982AE169830007881B /* ShareNoteButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -464,6 +481,7 @@
 				E0ED54F12ADAFB220042C355 /* ImagePickerPlaceHolder.swift in Sources */,
 				E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */,
 				E08783D12AE04FE40095A78F /* DeletedNotesView.swift in Sources */,
+				E0987D9F2AE18A040007881B /* Helpers.swift in Sources */,
 				E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */,
 				E0896F0B2ADC786E00B4F57C /* NoteButton.swift in Sources */,
 				E06CE6A62AD6FA0B002441F4 /* Color.swift in Sources */,
@@ -475,6 +493,8 @@
 				E0DFE8742AD30358004C2499 /* NoteBackground.swift in Sources */,
 				E0DFE8682AD2EF0D004C2499 /* Note.swift in Sources */,
 				E0308E792AD5D72D00BFB79E /* UpsertView.swift in Sources */,
+				E0987D992AE169830007881B /* ShareNoteButton.swift in Sources */,
+				E0987DA12AE18D870007881B /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
