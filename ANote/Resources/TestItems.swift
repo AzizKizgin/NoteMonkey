@@ -14,8 +14,7 @@ struct TestItems {
         title: "Note Title",
         content: "Lorem ipsum dolor sit amet",
         createdAt: Date(),
-        isPinned: true,
-        background: Backgrounds.backgrounds[0]
+        isPinned: true
     )
     
 }

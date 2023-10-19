@@ -14,8 +14,16 @@ extension Color {
             self.init(Color.item)
             return
         }
+        else if hex == "text" {
+            self.init(Color.text)
+            return
+        }
+        else if hex == "note"{
+            self.init(Color.note)
+            return
+        }
         else if hex == "default"{
-            self.init(hex)
+            self.init(Color.default)
             return
         }
         let hex = hex.trimmingCharacters(in:CharacterSet.alphanumerics.inverted)
