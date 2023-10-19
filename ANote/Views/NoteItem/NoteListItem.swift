@@ -19,18 +19,16 @@ struct NoteListItem: View {
             
         }, label: {
             VStack(spacing:10){
-                Text("Note Title")
+                Text(note.title)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .font(.title3)
-                    .shadow(radius: 10)
                     .bold()
-                Text("Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet")
+                Text(note.content)
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .font(.subheadline)
                     .lineLimit(isListView ? 4 : 10)
-                    .shadow(color: .black, radius: 10)
-                Text("23.00")
+                Text(Helpers.localizedDate(date: getDate() ?? note.createdAt))
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .font(.footnote)
             }
@@ -74,8 +72,18 @@ struct NoteListItem: View {
         )
         .buttonStyle(NoteButton())
         .navigationDestination(isPresented: $goDetail, destination: {
-            UpsertView()
+            UpsertView(note: note)
         })
+    }
+}
+
+extension NoteListItem{
+    func getDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        return dateFormatter.date(from: "2022-10-14T11:42:00") // replace Date String
     }
 }
 
