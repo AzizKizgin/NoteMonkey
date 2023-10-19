@@ -50,6 +50,6 @@ extension View {
         Text("s")
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,maxHeight: .infinity)
     }
-    .noteItemBackground(with: "0",isFullScreen: false)
+    .noteItemBackground(with: "1",isFullScreen: false)
 }
 

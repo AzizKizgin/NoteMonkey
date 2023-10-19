@@ -60,7 +60,6 @@ struct HomeMenu: View {
                 }
             }
         }
-        .foregroundStyle(.item)
         .padding(.vertical,5)
         .padding(.horizontal)
         .transition(.move(edge: .top).combined(with: .opacity))
