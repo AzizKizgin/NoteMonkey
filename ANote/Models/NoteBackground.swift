@@ -16,6 +16,8 @@ class NoteBackground{
     let image: String?
     let color: String?
     let textColor: String
+    @Relationship(deleteRule:.nullify, inverse: \Note.background)
+    
     
     init(id: String, image: String? = nil, color: String? = nil, textColor: String = "#ffffff") {
         self.id = id
