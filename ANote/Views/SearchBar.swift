@@ -27,7 +27,7 @@ struct SearchBar: View {
             .background(Color.accentColor.opacity(0.6))
             .clipShape(.capsule)
         }
-        .padding(.horizontal)
+        .padding(.horizontal,25)
         .transition(.move(edge: .top).combined(with: .opacity))
     }
 }
