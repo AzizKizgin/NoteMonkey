@@ -15,7 +15,7 @@ struct NoteItemBackground: ViewModifier {
             .background{
                 VStack{
                     if id == "0" {
-                        Color("default")
+                        isFullScreen ? Color.default: Color.note
                     }
                     else if let image = Backgrounds.backgrounds.first(where: {$0.id == id})?.image{
                         if isFullScreen{
@@ -50,6 +50,6 @@ extension View {
         Text("s")
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,maxHeight: .infinity)
     }
-    .noteItemBackground(with: "1",isFullScreen: false)
+    .noteItemBackground(with: "0",isFullScreen: false)
 }
 
