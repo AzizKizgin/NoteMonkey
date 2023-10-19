@@ -11,11 +11,13 @@ struct MenuButton: View {
     let iconName: String
     let onPress: () -> Void
     let size: CGFloat
+    let color: Color
     
-    init(iconName: String, onPress: @escaping () -> Void, size: CGFloat = 25) {
+    init(iconName: String, onPress: @escaping () -> Void, size: CGFloat = 25, color :Color = .accentColor) {
         self.iconName = iconName
         self.onPress = onPress
         self.size = size
+        self.color = color
     }
     var body: some View {
         Button(action: onPress, label: {
@@ -24,7 +26,7 @@ struct MenuButton: View {
         })
         .frame(width: 30,height: 30)
         .buttonStyle(.plain)
-        .foregroundStyle(Color.accentColor)
+        .foregroundStyle(color)
     }
 }
 
