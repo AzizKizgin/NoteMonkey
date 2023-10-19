@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     @State var searchText: String = ""
-    @State var showFab: Bool = true
     @State var showSelectionMenu: Bool = false
     @State var scrollOffset: CGFloat = 0.00
     @State var selectedNotes: [String] = []
@@ -25,7 +24,7 @@ struct HomeView: View {
                 onSelectAll: onSelectAll,
                 onChangeListType: onChangeListType
             )
-            if showFab && !showSelectionMenu {
+            if !showSelectionMenu {
                 SearchBar(text: $searchText, placeHolder: "Search Notes...")
             }
             ScrollView{
@@ -64,17 +63,29 @@ struct HomeView: View {
                             .transition(.move(edge: .trailing).combined(with: .opacity))
                         }
                     }
-           
                 }
             }
             .overlay(alignment: .bottomTrailing){
-                !showSelectionMenu && showFab ? AddFabButton()
+                !showSelectionMenu ? AddFabButton()
                 :nil
+            }
+            .overlay(alignment: .bottom){
+                if showSelectionMenu && selectedNotes.count > 0 {
+                    HStack(spacing: 20){
+                        MenuButton(iconName:  "pin", onPress: deleteSelectedNotes, color:.white)
+                        MenuButton(iconName: "trash", onPress: pinSelectedNotes, color:.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.default)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
         }
         .animation(.easeInOut(duration: 0.2),value: selectedNotes)
         .animation(.easeInOut(duration: 0.5),value: isListView)
         .ignoresSafeArea(edges:.bottom)
+        .background(Color.default)
     }
 }
 
@@ -105,6 +116,14 @@ extension HomeView{
     
     private func onChangeListType(){
         isListView.toggle()
+    }
+    
+    private func deleteSelectedNotes(){
+        
+    }
+    
+    private func pinSelectedNotes(){
+        
     }
 }
 
