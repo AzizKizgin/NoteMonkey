@@ -21,13 +21,12 @@ final class Note{
     
     init(
         id: UUID = UUID(),
-        title: String,
-        content: String,
-        createdAt: Date,
+        title: String = "",
+        content: String = "",
+        createdAt: Date = .now,
         updatedAt: Date? = nil,
         isPinned: Bool = false,
-        isDeleted: Bool = false,
-        background: NoteBackground? = nil
+        isDeleted: Bool = false
     ) {
         self.id = id
         self.title = title
@@ -36,6 +35,5 @@ final class Note{
         self.updatedAt = updatedAt
         self.isPinned = isPinned
         self.isDeleted = isDeleted
-        self.background = background
     }
 }
