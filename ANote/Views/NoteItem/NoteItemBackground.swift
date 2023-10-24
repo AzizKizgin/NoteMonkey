@@ -27,8 +27,7 @@ struct NoteItemBackground: ViewModifier {
                         }
                         else{
                             Image(image)
-                                .resizable()
-                                .scaledToFill()
+                                .resizable(resizingMode: .tile)
                         }
                     }
                     else if let color = backgrounds.first(where: {$0.id == id})?.color{
