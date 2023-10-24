@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct UpsertView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) var dismiss
     let note: Note?
     @State private var title: String = ""
     @State private var content: String = "sadasdasfsdf sd"
     @State private var showBackgroundList: Bool = false
-    @State private var selectedBackground: String = "0"
-    @State private var textColor: String = "text"
+    @State private var selectedBackground: NoteBackground = NoteBackground(id: "0", textColor: "text")
     @FocusState private var isFocused
     
     init(note: Note? = nil) {
@@ -24,12 +25,12 @@ struct UpsertView: View {
             VStack{
                 VStack{
                     TextField("", text: $title, prompt: Text("Title")
-                        .foregroundStyle(Color(hex:textColor).opacity(0.5))
+                        .foregroundStyle(Color(hex:selectedBackground.textColor).opacity(0.5))
                         .bold())
-                    .foregroundStyle(Color(hex: textColor))
+                    .foregroundStyle(Color(hex: selectedBackground.textColor))
                     .font(.title)
                     .bold()
-                    ContentEditor(text: $content,isFocused: isFocused, textColor:Color(hex:textColor))
+                    ContentEditor(text: $content,isFocused: isFocused, textColor:Color(hex:selectedBackground.textColor))
                         .focused($isFocused)
                 }
                 .padding()
@@ -38,10 +39,10 @@ struct UpsertView: View {
                 }
             }
             .backgroundPickerList(with: $selectedBackground, isVisible: showBackgroundList)
+            .noteItemBackground(with: selectedBackground.id ,isFullScreen: true)
             .animation(.easeIn(duration: 0.2), value: showBackgroundList)
             .frame(maxHeight: .infinity,alignment: .top)
             .foregroundStyle(.white)
-            .noteItemBackground(with: selectedBackground,isFullScreen: true)
             .ignoresSafeArea(.keyboard)
             .toolbar{
                 ToolbarItem(placement:.topBarTrailing){
@@ -50,17 +51,14 @@ struct UpsertView: View {
                         MenuButton(iconName: "paintbrush", onPress: toggleBackgroundList, size: 20)
                         MenuButton(iconName: "trash", onPress: onDelete, size: 20)
                     }
-                    .foregroundStyle(Color(hex:textColor))
+                    .foregroundStyle(Color(hex:selectedBackground.textColor))
                     .padding(.horizontal)
                 }
-            }
-            .onChange(of: selectedBackground){ _ , newIndex in
-                textColor = Backgrounds.backgrounds.first(where: {$0.id == selectedBackground})?.textColor ?? "text"
             }
             .onAppear{
                 self.title = note?.title ?? ""
                 self.content = note?.content ?? ""
-                self.selectedBackground = note?.background?.id ?? "2"
+                self.selectedBackground = note?.background ?? NoteBackground(id: "0", textColor: "text")
             }
         }
     }
@@ -72,7 +70,10 @@ extension UpsertView{
     }
     
     private func onDelete(){
-        
+        let note = Note(id:UUID(),title: title,content: content,createdAt: .now)
+        note.background = selectedBackground
+        modelContext.insert(note)
+      
     }
     
     private func onShare(){

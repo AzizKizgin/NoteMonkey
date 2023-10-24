@@ -34,7 +34,7 @@ struct NoteListItem: View {
             }
             .padding()
             .frame(maxWidth: .infinity,minHeight: 50,alignment: .topLeading)
-            .noteItemBackground(with: "1",isFullScreen: false)
+            .noteItemBackground(with: note.background?.id ?? "0", isFullScreen: false)
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
             .overlay(alignment: .bottomTrailing){

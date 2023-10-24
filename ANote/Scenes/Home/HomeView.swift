@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
+    @Query var notes: [Note]
     @State var searchText: String = ""
     @State var showSelectionMenu: Bool = false
-    @State var scrollOffset: CGFloat = 0.00
     @State var selectedNotes: [String] = []
     @State var isListView: Bool = true
     @State var showList: Bool = true
@@ -32,13 +33,13 @@ struct HomeView: View {
                     Group{
                         if isListView{
                             LazyVStack{
-                                ForEach(1...10, id: \.self){ item in
-                                    NoteListItem(note: Note(id: UUID(),title: "s", content: "s", createdAt: Date()),
+                                ForEach(notes, id: \.id.uuidString){item in
+                                    NoteListItem(note: item,
                                                  onLongPress:{
-                                        onItemLongPress(id:String(item))
+                                        onItemLongPress(id:item.id.uuidString)
                                     },
                                                  showSelectButton: showSelectionMenu,
-                                                 isSelected: selectedNotes.contains(String(item)),
+                                                 isSelected: selectedNotes.contains(item.id.uuidString),
                                                  isListView: isListView
                                     )
                                 }
@@ -48,13 +49,13 @@ struct HomeView: View {
                         }
                         else{
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))]){
-                                ForEach(1...10, id: \.self){ item in
-                                    NoteListItem(note: Note(id: UUID(),title: "s", content: "s", createdAt: Date()),
+                                ForEach(notes, id: \.id.uuidString){ item in
+                                    NoteListItem(note: item,
                                                  onLongPress:{
-                                        onItemLongPress(id:String(item))
+                                        onItemLongPress(id:String(item.id.uuidString))
                                     },
                                                  showSelectButton: showSelectionMenu,
-                                                 isSelected: selectedNotes.contains(String(item)),
+                                                 isSelected: selectedNotes.contains(item.id.uuidString),
                                                  isListView: isListView
                                     )
                                 }

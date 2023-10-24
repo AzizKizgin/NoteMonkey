@@ -6,25 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BackgroundPickerList: ViewModifier {
-    @Binding var selectedBackground: String
+    @Query(sort: \NoteBackground.createdAt) var backgrounds: [NoteBackground]
+    @Binding var selectedBackground: NoteBackground
     let isVisible: Bool
-    private func setBackground(id: String){
-        if selectedBackground == id {
-            selectedBackground = "0"
-        }
-        else {
-            selectedBackground = id
-        }
-    }
+
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .bottom){
                 if isVisible {
                     ScrollView(.horizontal){
                         LazyHStack{
-                            ForEach(Backgrounds.backgrounds, id: \.self) { background in
+                            ForEach(backgrounds, id: \.id) { background in
                                 Button(action: {setBackground(id: background.id)}, label: {
                                     VStack{
                                         if let image = background.image {
@@ -45,7 +40,7 @@ struct BackgroundPickerList: ViewModifier {
                                             }
                                         }
                                     }
-                                    .border(background.id  == "0" ? .black: .white ,width: selectedBackground == background.id ? 5 : 0)
+                                    .border(background.id  == "0" ? .black: .white ,width: selectedBackground.id == background.id ? 5 : 0)
                                 })
                                 .buttonStyle(PlainButtonStyle())
                             }
@@ -74,9 +69,22 @@ struct BackgroundPickerList: ViewModifier {
     }
 }
 
+extension BackgroundPickerList{
+    private func setBackground(id: String){
+        withAnimation{
+            if self.selectedBackground.id == id {
+                self.selectedBackground = backgrounds[0]
+            }
+            else {
+                self.selectedBackground = backgrounds.first(where: {$0.id == id}) ?? backgrounds[0]
+            }
+        }
+    }
+}
+
 extension View {
-    func backgroundPickerList(with index: Binding<String>, isVisible: Bool) -> some View {
-        modifier(BackgroundPickerList(selectedBackground: index,isVisible: isVisible))
+    func backgroundPickerList(with background: Binding<NoteBackground>, isVisible: Bool) -> some View {
+        modifier(BackgroundPickerList(selectedBackground: background,isVisible: isVisible))
     }
 }
 
@@ -87,6 +95,6 @@ extension View {
             
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)
-        .backgroundPickerList(with: .constant("2"),isVisible: true)
+        .backgroundPickerList(with: .constant(NoteBackground(id: "0", textColor: "text")), isVisible: true)
     }
 }
