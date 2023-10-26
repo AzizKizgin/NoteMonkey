@@ -33,7 +33,8 @@ struct NoteListItem: View {
                     .font(.footnote)
             }
             .padding()
-            .frame(maxWidth: .infinity,minHeight: 50,alignment: .topLeading)
+            .frame(maxWidth: .infinity,alignment: .topLeading)
+            .frame(height: 110)
             .noteItemBackground(with: note.background?.id ?? "0", isFullScreen: false)
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
