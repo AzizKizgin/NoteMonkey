@@ -27,7 +27,13 @@ struct NoteItemBackground: ViewModifier {
                         }
                         else{
                             Image(image)
-                                .resizable(resizingMode: .tile)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 400, height: 1000)
+                                .offset(y: 20)
+                                .frame(width: 400, height: 110)
+                                .clipped()
+                                .contentShape(Rectangle())
                         }
                     }
                     else if let color = backgrounds.first(where: {$0.id == id})?.color{
