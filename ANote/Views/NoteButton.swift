@@ -12,6 +12,7 @@ struct NoteButton: ButtonStyle {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .animation(.linear(duration: 0.1), value: configuration.isPressed)
+
     }
 }
 
