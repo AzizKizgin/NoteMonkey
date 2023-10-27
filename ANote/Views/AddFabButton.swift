@@ -15,7 +15,8 @@ struct AddFabButton: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20)
-                    .padding(15)
+                    .padding(.vertical, 15)
+                    .padding(.horizontal,10)
             }
         }
         .buttonStyle(.borderedProminent)
