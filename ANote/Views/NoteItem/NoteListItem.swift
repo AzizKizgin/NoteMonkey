@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NoteListItem: View {
-    let note: Note
+    @Bindable var note: Note
     let onLongPress: () -> Void
     let showSelectButton: Bool
     let isSelected: Bool
@@ -28,15 +28,23 @@ struct NoteListItem: View {
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .font(.subheadline)
                     .lineLimit(isListView ? 4 : 10)
-                Text(Helpers.localizedDate(date: getDate() ?? note.createdAt))
-                    .frame(maxWidth: .infinity,alignment: .leading)
-                    .font(.footnote)
+                HStack(spacing: 5){
+                    Text(Helpers.localizedDate(date: getDate() ?? note.createdAt))
+                        .font(.footnote)
+                    if note.isPinned == 1 {
+                        VStack(alignment:.center){
+                            Image(systemName: "pin")
+                                .font(.system(size: 16))
+                        }
+                            .foregroundColor(Color.accentColor)
+                    }
+                } .frame(maxWidth: .infinity,alignment: .leading)
             }
             .padding()
             .frame(maxWidth: .infinity,alignment: .topLeading)
             .frame(height: 110)
             .noteItemBackground(with: note.background?.id ?? "0", isFullScreen: false)
-            .foregroundStyle(.white)
+            .foregroundStyle(Color(hex: note.background?.textColor ?? "textColor"))
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
             .overlay(alignment: .bottomTrailing){
                 if showSelectButton{
@@ -72,9 +80,9 @@ struct NoteListItem: View {
                 }
         )
         .buttonStyle(NoteButton())
-        .navigationDestination(isPresented: $goDetail, destination: {
+        .fullScreenCover(isPresented: $goDetail ){
             UpsertView(note: note)
-        })
+        }
     }
 }
 
