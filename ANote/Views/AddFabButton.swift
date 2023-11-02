@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct AddFabButton: View {
+    @State private var showCreateScreen = false
     var body: some View {
-        NavigationLink(destination: UpsertView()){
+        Button(action: {
+            showCreateScreen = true
+        }, label: {
             VStack{
                 Image(systemName: "plus")
                     .resizable()
@@ -18,6 +21,9 @@ struct AddFabButton: View {
                     .padding(.vertical, 15)
                     .padding(.horizontal,10)
             }
+        })
+        .fullScreenCover(isPresented: $showCreateScreen){
+            UpsertView(note: Note())
         }
         .buttonStyle(.borderedProminent)
         .buttonBorderShape(.circle)
