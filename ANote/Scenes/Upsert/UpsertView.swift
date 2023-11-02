@@ -6,31 +6,36 @@
 //
 
 import SwiftUI
+import SwiftData
+
+var descriptor: FetchDescriptor<NoteBackground> {
+    var descriptor = FetchDescriptor<NoteBackground>(sortBy: [SortDescriptor(\.createdAt)])
+    descriptor.fetchLimit = 1
+    return descriptor
+}
+
+
 
 struct UpsertView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
-    let note: Note?
-    @State private var title: String = ""
-    @State private var content: String = "sadasdasfsdf sd"
+    @Query(descriptor) var backgrounds: [NoteBackground]
+    @Bindable var note: Note
     @State private var showBackgroundList: Bool = false
     @State private var selectedBackground: NoteBackground = NoteBackground(id: "0", textColor: "text")
     @FocusState private var isFocused
     
-    init(note: Note? = nil) {
-        self.note = note
-    }
     var body: some View {
         NavigationStack{
             VStack{
                 VStack{
-                    TextField("", text: $title, prompt: Text("Title")
+                    TextField("", text: $note.title, prompt: Text("Title")
                         .foregroundStyle(Color(hex:selectedBackground.textColor).opacity(0.5))
                         .bold())
                     .foregroundStyle(Color(hex: selectedBackground.textColor))
                     .font(.title)
                     .bold()
-                    ContentEditor(text: $content,isFocused: isFocused, textColor:Color(hex:selectedBackground.textColor))
+                    ContentEditor(text: $note.content,isFocused: isFocused, textColor:Color(hex:selectedBackground.textColor))
                         .focused($isFocused)
                 }
                 .padding()
@@ -45,20 +50,30 @@ struct UpsertView: View {
             .foregroundStyle(.white)
             .ignoresSafeArea(.keyboard)
             .toolbar{
+                ToolbarItem(placement: .topBarLeading, content: {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text("Close")
+                            .font(.system(size: 20))
+                            .foregroundStyle(Color.accentColor)
+                    })
+                    .buttonStyle(.plain)
+                })
                 ToolbarItem(placement:.topBarTrailing){
                     HStack(spacing:20){
-                        ShareNoteButton(title: title, content: content)
+                        ShareNoteButton(title: note.title, content: note.content)
                         MenuButton(iconName: "paintbrush", onPress: toggleBackgroundList, size: 20)
                         MenuButton(iconName: "trash", onPress: onDelete, size: 20)
                     }
-                    .foregroundStyle(Color(hex:selectedBackground.textColor))
                     .padding(.horizontal)
                 }
             }
             .onAppear{
-                self.title = note?.title ?? ""
-                self.content = note?.content ?? ""
-                self.selectedBackground = note?.background ?? NoteBackground(id: "0", textColor: "text")
+                self.selectedBackground = note.background ?? backgrounds[0]
+            }
+            .onChange(of: selectedBackground){ _ , newBackground in
+                note.background = newBackground
             }
         }
     }
@@ -70,10 +85,8 @@ extension UpsertView{
     }
     
     private func onDelete(){
-        let note = Note(id:UUID(),title: title,content: content,createdAt: .now)
-        note.background = selectedBackground
-        modelContext.insert(note)
-      
+
+    
     }
     
     private func onShare(){
@@ -81,6 +94,22 @@ extension UpsertView{
     }
 }
 
-#Preview {
-    UpsertView()
+#Preview {    
+    MainActor.assumeIsolated{
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try! ModelContainer(for: NoteBackground.self, configurations: config)
+
+        let background = NoteBackground(id: "0", image: "bird",createdAt: Date.now.addingTimeInterval(2*100))
+        container.mainContext.insert(background)
+            
+        let background2 = NoteBackground(id: "1", color: "#223233", textColor: "#000", createdAt: Date.now.addingTimeInterval(2*100))
+        container.mainContext.insert(background2)
+        
+        return
+            NavigationStack{
+                UpsertView(note: Note())
+        }
+        .modelContainer(container)
+}
+  
 }
