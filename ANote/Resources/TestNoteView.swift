@@ -14,7 +14,7 @@ struct TestNoteView: View {
                 title: "Note Title",
                 content: "Lorem ipsum dolor sit amet",
                 createdAt: Date(),
-                isPinned: true
+                isPinned: 1
             ),
             onLongPress: {},
             showSelectButton: true,
