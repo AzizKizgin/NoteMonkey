@@ -10,13 +10,13 @@ import SwiftData
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query var notes: [Note]
+    @Query(filter: #Predicate<Note>{$0.isDeleted == false} ,sort: [SortDescriptor(\Note.isPinned),SortDescriptor(\Note.createdAt, order: .reverse)]) private var notes: [Note]
     @State var searchText: String = ""
     @State var showSelectionMenu: Bool = false
     @State var selectedNotes: [String] = []
     @State var isListView: Bool = true
     @State var showList: Bool = true
-    
+
     var body: some View {
         VStack{
             HomeMenu(
@@ -133,7 +133,7 @@ extension HomeView{
         do{
             for index in selectedNotes {
                 if let noteToDelete = notes.first(where: {$0.id.uuidString == index}){
-                    modelContext.delete(noteToDelete)
+                    noteToDelete.isDeleted = true
                 }
             }
             try modelContext.save()
@@ -161,11 +161,10 @@ extension HomeView{
             let note = Note(
                 title: "Note Title",
                 content: "Lorem ipsum dolor sit amet",
-                createdAt: Date(),
-                isPinned: true
+                createdAt: Date()
             )
-            if index % 2 == 0{
-                note.isPinned = true
+            if index % 2 == 0 {
+                note.isPinned = 1
             }
             note.background = background
             container.mainContext.insert(note)
