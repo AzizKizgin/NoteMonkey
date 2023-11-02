@@ -15,7 +15,7 @@ final class Note{
     var content: String
     var createdAt: Date
     var updatedAt: Date?
-    var isPinned: Bool
+    var isPinned: Int
     var isDeleted: Bool
     var background: NoteBackground?
     
@@ -25,7 +25,7 @@ final class Note{
         content: String = "",
         createdAt: Date = .now,
         updatedAt: Date? = nil,
-        isPinned: Bool = false,
+        isPinned: Int = 0,
         isDeleted: Bool = false
     ) {
         self.id = id
