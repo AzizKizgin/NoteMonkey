@@ -90,18 +90,14 @@ extension UpsertView{
         if note.title.isEmpty && note.content.isEmpty{
             modelContext.delete(note)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            dismiss()
-        }
+        dismiss()
     }
     
     private func close(){
         if note.title.isEmpty && note.content.isEmpty{
             modelContext.delete(note)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            dismiss()
-        }
+        dismiss()
     }
 }
 
