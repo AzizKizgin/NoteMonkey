@@ -21,6 +21,11 @@ struct HomeView: View {
     @State var isListView: Bool = true
     @State var showList: Bool = true
 
+    var filteredNotes: [Note] {
+        guard !searchText.isEmpty else {return notes}
+        return notes.filter{$0.content.contains(searchText) || $0.title.contains(searchText)}
+    }
+    
     var body: some View {
         VStack{
             HomeMenu(
@@ -38,7 +43,7 @@ struct HomeView: View {
                     Group{
                         if isListView{
                             LazyVStack{
-                                ForEach(notes, id: \.id.uuidString){item in
+                                ForEach(filteredNotes, id: \.id.uuidString){item in
                                     NoteListItem(note: item,
                                                  onLongPress:{
                                         onItemLongPress(id:item.id.uuidString)
@@ -54,7 +59,7 @@ struct HomeView: View {
                         }
                         else{
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))]){
-                                ForEach(notes, id: \.id.uuidString){ item in
+                                ForEach(filteredNotes, id: \.id.uuidString){ item in
                                     NoteListItem(note: item,
                                                  onLongPress:{
                                         onItemLongPress(id:String(item.id.uuidString))
@@ -121,11 +126,11 @@ extension HomeView{
     }
     
     private func onSelectAll(){
-        if selectedNotes.count == notes.count{
+        if selectedNotes.count == filteredNotes.count{
             selectedNotes.removeAll()
         }
         else{
-            selectedNotes = notes.map({$0.id.uuidString})
+            selectedNotes = filteredNotes.map({$0.id.uuidString})
         }
     }
     
@@ -135,7 +140,7 @@ extension HomeView{
     
     private func deleteSelectedNotes(){
         for index in selectedNotes {
-            if let noteToDelete = notes.first(where: {$0.id.uuidString == index}){
+            if let noteToDelete = filteredNotes.first(where: {$0.id.uuidString == index}){
                 noteToDelete.isDeleted.toggle()
             }
         }
@@ -146,7 +151,7 @@ extension HomeView{
     private func pinSelectedNotes(){
         do{
             for index in selectedNotes {
-                if let noteToPin = notes.first(where: {$0.id.uuidString == index}){
+                if let noteToPin = filteredNotes.first(where: {$0.id.uuidString == index}){
                     noteToPin.isPinned.toggle()
                     
                 }
