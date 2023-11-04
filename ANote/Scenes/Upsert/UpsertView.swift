@@ -51,9 +51,7 @@ struct UpsertView: View {
             .ignoresSafeArea(.keyboard)
             .toolbar{
                 ToolbarItem(placement: .topBarLeading, content: {
-                    Button(action: {
-                        dismiss()
-                    }, label: {
+                    Button(action: close, label: {
                         Text("Close")
                             .font(.system(size: 20))
                             .foregroundStyle(Color.accentColor)
@@ -63,6 +61,7 @@ struct UpsertView: View {
                 ToolbarItem(placement:.topBarTrailing){
                     HStack(spacing:20){
                         ShareNoteButton(title: note.title, content: note.content)
+                            .disabled(note.content.isEmpty && note.title.isEmpty)
                         MenuButton(iconName: "paintbrush", onPress: toggleBackgroundList, size: 20)
                         MenuButton(iconName: "trash", onPress: onDelete, size: 20)
                     }
@@ -85,12 +84,24 @@ extension UpsertView{
     }
     
     private func onDelete(){
-
-    
+        if !note.title.isEmpty || !note.content.isEmpty {
+            note.isDeleted.toggle()
+        }
+        if note.title.isEmpty && note.content.isEmpty{
+            modelContext.delete(note)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            dismiss()
+        }
     }
     
-    private func onShare(){
-        
+    private func close(){
+        if note.title.isEmpty && note.content.isEmpty{
+            modelContext.delete(note)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            dismiss()
+        }
     }
 }
 
