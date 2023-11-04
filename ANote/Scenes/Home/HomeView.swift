@@ -10,8 +10,8 @@ import SwiftData
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(filter: #Predicate<Note>{
-        $0.isDeleted == false
+    @Query(filter: #Predicate<Note>{ note in
+        note.isDeleted == false && (note.title != "" || note.content != "")
     } ,sort: [SortDescriptor(\Note.isPinned, order: .reverse),SortDescriptor(\Note.createdAt, order: .reverse)]
            ,  animation: .smooth.delay(0.3)
     ) private var notes: [Note]
