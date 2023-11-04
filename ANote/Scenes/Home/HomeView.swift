@@ -10,7 +10,11 @@ import SwiftData
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(filter: #Predicate<Note>{$0.isDeleted == false} ,sort: [SortDescriptor(\Note.isPinned),SortDescriptor(\Note.createdAt, order: .reverse)]) private var notes: [Note]
+    @Query(filter: #Predicate<Note>{
+        $0.isDeleted == false
+    } ,sort: [SortDescriptor(\Note.isPinned, order: .reverse),SortDescriptor(\Note.createdAt, order: .reverse)]
+           ,  animation: .smooth.delay(0.3)
+    ) private var notes: [Note]
     @State var searchText: String = ""
     @State var showSelectionMenu: Bool = false
     @State var selectedNotes: [String] = []
@@ -130,22 +134,30 @@ extension HomeView{
     }
     
     private func deleteSelectedNotes(){
+        for index in selectedNotes {
+            if let noteToDelete = notes.first(where: {$0.id.uuidString == index}){
+                noteToDelete.isDeleted.toggle()
+            }
+        }
+        selectedNotes.removeAll()
+        showSelectionMenu.toggle()
+    }
+    
+    private func pinSelectedNotes(){
         do{
             for index in selectedNotes {
-                if let noteToDelete = notes.first(where: {$0.id.uuidString == index}){
-                    noteToDelete.isDeleted = true
+                if let noteToPin = notes.first(where: {$0.id.uuidString == index}){
+                    noteToPin.isPinned.toggle()
+                    
                 }
             }
             try modelContext.save()
-            selectedNotes.removeAll()
+            showSelectionMenu.toggle()
         }
         catch{
             
         }
-    }
-    
-    private func pinSelectedNotes(){
-        
+        selectedNotes.removeAll()
     }
 }
 
