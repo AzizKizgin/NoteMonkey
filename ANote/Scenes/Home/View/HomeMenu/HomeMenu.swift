@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeMenu: View {
     @State private var isListView: Bool = true
     @State private var isAllSelected: Bool = false
+    @State private var showDeletedNotes: Bool = false
     let showSelectionMenu: Bool
     let selectedItemCount: Int
     let onCancelSelect: () -> Void
@@ -30,9 +31,9 @@ struct HomeMenu: View {
                             onChangeListType()
                             isListView.toggle()
                         })
-                        MenuLinkButton(iconName: "arrow.up.trash") {
-                            DeletedNotesView()
-                        }
+                        MenuButton(iconName: "arrow.up.trash", onPress: {
+                            showDeletedNotes.toggle()
+                        })
                     }
                 }
             }
@@ -63,6 +64,9 @@ struct HomeMenu: View {
         .padding(.vertical,5)
         .padding(.horizontal)
         .transition(.move(edge: .top).combined(with: .opacity))
+        .fullScreenCover(isPresented: $showDeletedNotes){
+            DeletedNotesView()
+        }
     }
 }
 
