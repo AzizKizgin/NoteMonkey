@@ -104,6 +104,7 @@ struct HomeView: View {
         }
         .animation(.easeInOut(duration: 0.2),value: selectedNotes)
         .animation(.easeInOut(duration: 0.5),value: isListView)
+        .animation(.easeInOut(duration: 0.2),value: showSelectionMenu)
         .ignoresSafeArea(edges:.bottom)
         .background(Color.default)
     }
@@ -112,7 +113,7 @@ struct HomeView: View {
 extension HomeView{
     private func onItemLongPress(id:String){
         if selectedNotes.contains(id){
-            selectedNotes = selectedNotes.filter(){$0 != id}
+            selectedNotes = selectedNotes.filter({$0 != id})
         }
         else{
             selectedNotes.append(id)
@@ -141,6 +142,7 @@ extension HomeView{
     private func deleteSelectedNotes(){
         for index in selectedNotes {
             if let noteToDelete = filteredNotes.first(where: {$0.id.uuidString == index}){
+                noteToDelete.deletedAt = .now
                 noteToDelete.isDeleted.toggle()
             }
         }
@@ -149,19 +151,12 @@ extension HomeView{
     }
     
     private func pinSelectedNotes(){
-        do{
-            for index in selectedNotes {
-                if let noteToPin = filteredNotes.first(where: {$0.id.uuidString == index}){
-                    noteToPin.isPinned.toggle()
-                    
-                }
+        for index in selectedNotes {
+            if let noteToPin = filteredNotes.first(where: {$0.id.uuidString == index}){
+                noteToPin.isPinned.toggle()
             }
-            try modelContext.save()
-            showSelectionMenu.toggle()
         }
-        catch{
-            
-        }
+        showSelectionMenu.toggle()
         selectedNotes.removeAll()
     }
 }
