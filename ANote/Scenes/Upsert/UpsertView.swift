@@ -85,9 +85,10 @@ extension UpsertView{
     
     private func onDelete(){
         if !note.title.isEmpty || !note.content.isEmpty {
+            note.deletedAt = .now
             note.isDeleted.toggle()
         }
-        if note.title.isEmpty && note.content.isEmpty{
+        else {
             modelContext.delete(note)
         }
         dismiss()
