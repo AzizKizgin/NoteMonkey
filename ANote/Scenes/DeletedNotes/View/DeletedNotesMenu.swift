@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct DeletedNotesMenu: View {
+    @Environment(\.dismiss) var dismiss
     @State private var isListView: Bool = true
-    @State private var isAllSelected: Bool = false
     let showSelectionMenu: Bool
     let selectedItemCount: Int
     let onCancelSelect: () -> Void
@@ -18,7 +18,7 @@ struct DeletedNotesMenu: View {
     let onDelete: () -> Void
     let onUnDelete: () -> Void
     var body: some View {
-        Group{
+        VStack{
             if !showSelectionMenu{
                 HStack(spacing:20){
                     MenuButton(iconName: isListView ? "square.grid.2x2" : "list.bullet.rectangle.portrait", onPress: {
@@ -27,13 +27,21 @@ struct DeletedNotesMenu: View {
                     })
                     MenuButton(iconName: "trash", onPress: {})
                 }
+                .frame(maxWidth: .infinity)
+                .overlay(alignment: .leading){
+                    Button(action: {dismiss()}, label: {
+                        Text("Close")
+                            .font(.system(size: 20))
+                            .foregroundStyle(Color.accentColor)
+                    })
+                    .buttonStyle(.plain)
+                }
             }
             else{
                 HStack{
+                    MenuButton(iconName: "multiply", onPress: onCancelSelect)
                     Spacer()
-                    MenuButton(iconName: "multiply", onPress: {
-                        onCancelSelect()
-                    })
+                    MenuButton(iconName: "checkmark.rectangle.stack", onPress: onSelectAll)
                 }
                 .overlay(alignment: .center){
                     HStack(spacing:20){
@@ -43,9 +51,13 @@ struct DeletedNotesMenu: View {
                 }
             }
         }
+        .transition(.move(edge: .top).combined(with: .opacity))
+        .background(Color.default)
+        .animation(.easeInOut(duration: 0.5),value: isListView)
         .padding(.vertical,5)
         .padding(.horizontal)
-        .transition(.move(edge: .top).combined(with: .opacity))
+        
+ 
     }
 }
 
