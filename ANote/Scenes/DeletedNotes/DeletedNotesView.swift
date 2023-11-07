@@ -6,8 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DeletedNotesView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(filter: #Predicate<Note>{ note in
+        note.isDeleted == true && (note.title != "" || note.content != "")
+    } ,sort: [SortDescriptor(\Note.deletedAt, order: .reverse)]
+           ,  animation: .smooth.delay(0.3)
+    ) private var notes: [Note]
     @State var searchText: String = ""
     @State var showSelectionMenu: Bool = false
     @State var scrollOffset: CGFloat = 0.00
@@ -15,9 +22,14 @@ struct DeletedNotesView: View {
     @State var isListView: Bool = true
     @State var showList: Bool = true
     
+    var filteredNotes: [Note] {
+        guard !searchText.isEmpty else {return notes}
+        return notes.filter{$0.content.contains(searchText) || $0.title.contains(searchText)}
+    }
+    
     var body: some View {
         VStack{
-            DeletedNotesMenu(showSelectionMenu: showSelectionMenu, selectedItemCount: selectedNotes.count, onCancelSelect: onCancelPress, onSelectAll: onSelectAll, onChangeListType: onChangeListType, onDelete: onDelete, onUnDelete: onUnDelete)
+            DeletedNotesMenu(showSelectionMenu: showSelectionMenu, selectedItemCount: selectedNotes.count, onCancelSelect: onCancelPress, onSelectAll: onSelectAll, onChangeListType: onChangeListType, onDelete: deleteSelectedNotes, onUnDelete: onUnDelete)
             if  !showSelectionMenu {
                 SearchBar(text: $searchText, placeHolder: "Search Notes...")
             }
@@ -26,13 +38,13 @@ struct DeletedNotesView: View {
                     Group{
                         if isListView{
                             LazyVStack{
-                                ForEach(1...10, id: \.self){ item in
-                                    NoteListItem(note: Note(id: UUID(),title: "s", content: "s", createdAt: Date()),
+                                ForEach(filteredNotes, id: \.id.uuidString){ item in
+                                    NoteListItem(note: item,
                                                  onLongPress:{
-                                        onItemLongPress(id:String(item))
+                                        onItemLongPress(id:item.id.uuidString)
                                     },
                                                  showSelectButton: showSelectionMenu,
-                                                 isSelected: selectedNotes.contains(String(item)),
+                                                 isSelected: selectedNotes.contains(item.id.uuidString),
                                                  isListView: isListView
                                     )
                                 }
@@ -42,13 +54,13 @@ struct DeletedNotesView: View {
                         }
                         else{
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))]){
-                                ForEach(1...10, id: \.self){ item in
-                                    NoteListItem(note: Note(id: UUID(),title: "s", content: "s", createdAt: Date()),
+                                ForEach(filteredNotes, id: \.id.uuidString){ item in
+                                    NoteListItem(note: item,
                                                  onLongPress:{
-                                        onItemLongPress(id:String(item))
+                                        onItemLongPress(id:item.id.uuidString)
                                     },
                                                  showSelectButton: showSelectionMenu,
-                                                 isSelected: selectedNotes.contains(String(item)),
+                                                 isSelected: selectedNotes.contains(item.id.uuidString),
                                                  isListView: isListView
                                     )
                                 }
@@ -61,8 +73,10 @@ struct DeletedNotesView: View {
                 }
             }
         }
+        .background(Color.default)
         .animation(.easeInOut(duration: 0.2),value: selectedNotes)
         .animation(.easeInOut(duration: 0.5),value: isListView)
+        .animation(.easeInOut(duration: 0.2),value: showSelectionMenu)
         .ignoresSafeArea(edges:.bottom)
     }
 }
@@ -84,11 +98,11 @@ extension DeletedNotesView{
     }
     
     private func onSelectAll(){
-        if selectedNotes.count == 100{
+        if selectedNotes.count == filteredNotes.count{
             selectedNotes.removeAll()
         }
         else{
-            selectedNotes = Array(0...99).map{String($0)}
+            selectedNotes = filteredNotes.map({$0.id.uuidString})
         }
     }
     
@@ -96,18 +110,55 @@ extension DeletedNotesView{
         isListView.toggle()
     }
     
-    private func onDelete(){
-        
+    private func deleteSelectedNotes(){
+        for index in selectedNotes {
+            if let noteToDelete = filteredNotes.first(where: {$0.id.uuidString == index}){
+                modelContext.delete(noteToDelete)
+            }
+        }
+        selectedNotes.removeAll()
+        showSelectionMenu.toggle()
     }
     
     private func onUnDelete(){
-        
+        for index in selectedNotes {
+            if let noteToUnDelete = filteredNotes.first(where: {$0.id.uuidString == index}){
+                noteToUnDelete.isDeleted = false
+                noteToUnDelete.deletedAt = nil
+                try! modelContext.save()
+            }
+        }
+        selectedNotes.removeAll()
+        showSelectionMenu.toggle()
     }
+    
 }
 
 #Preview {
-    NavigationStack{
-        DeletedNotesView()
+    MainActor.assumeIsolated{
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try! ModelContainer(for: NoteBackground.self, Note.self, configurations: config)
+
+        let background = NoteBackground(id: "2", image: "bird",createdAt: Date.now.addingTimeInterval(2*100))
+        container.mainContext.insert(background)
+        
+        for index in 0...10 {
+            let note = Note(
+                title: "Note Title",
+                content: "Lorem ipsum dolor sit amet",
+                createdAt: Date(),
+                isDeleted: true,
+                deletedAt: .now.addingTimeInterval(10)
+            )
+            note.background = background
+            container.mainContext.insert(note)
+        }
+        
+        return
+            NavigationStack{
+                DeletedNotesView()
+        }
+        .modelContainer(container)
     }
 }
 
