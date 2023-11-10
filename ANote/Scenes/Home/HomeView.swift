@@ -13,7 +13,7 @@ struct HomeView: View {
     @Query(filter: #Predicate<Note>{ note in
         note.isDeleted == false && (note.title != "" || note.content != "")
     } ,sort: [SortDescriptor(\Note.isPinned, order: .reverse),SortDescriptor(\Note.createdAt, order: .reverse)]
-           ,  animation: .smooth.delay(0.3)
+           ,  animation: .smooth(duration: 0.3)
     ) private var notes: [Note]
     @State var searchText: String = ""
     @State var showSelectionMenu: Bool = false
