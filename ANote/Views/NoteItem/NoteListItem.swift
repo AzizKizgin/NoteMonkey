@@ -31,7 +31,7 @@ struct NoteListItem: View {
                 HStack(spacing: 5){
                     Text(Helpers.localizedDate(date: getDate() ?? note.createdAt))
                         .font(.footnote)
-                    if note.isPinned == 1 {
+                    if note.isPinned == 1 && note.deletedAt == nil {
                         VStack(alignment:.center){
                             Image(systemName: "pin")
                                 .font(.system(size: 16))
