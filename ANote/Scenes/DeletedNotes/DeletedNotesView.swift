@@ -13,8 +13,9 @@ struct DeletedNotesView: View {
     @Query(filter: #Predicate<Note>{ note in
         note.isDeleted == true && (note.title != "" || note.content != "")
     } ,sort: [SortDescriptor(\Note.deletedAt, order: .reverse)]
-           ,  animation: .smooth.delay(0.3)
+           ,  animation: .smooth(duration: 0.3)
     ) private var notes: [Note]
+  
     @State var searchText: String = ""
     @State var showSelectionMenu: Bool = false
     @State var scrollOffset: CGFloat = 0.00
@@ -77,6 +78,7 @@ struct DeletedNotesView: View {
         .animation(.easeInOut(duration: 0.2),value: selectedNotes)
         .animation(.easeInOut(duration: 0.5),value: isListView)
         .animation(.easeInOut(duration: 0.2),value: showSelectionMenu)
+        .transition(.move(edge: .bottom).combined(with: .opacity))
         .ignoresSafeArea(edges:.bottom)
     }
 }
