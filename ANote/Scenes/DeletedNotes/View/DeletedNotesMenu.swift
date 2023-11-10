@@ -25,7 +25,6 @@ struct DeletedNotesMenu: View {
                         onChangeListType()
                         isListView.toggle()
                     })
-                    MenuButton(iconName: "trash", onPress: {})
                 }
                 .frame(maxWidth: .infinity)
                 .overlay(alignment: .leading){
