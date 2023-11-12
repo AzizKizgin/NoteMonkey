@@ -10,7 +10,7 @@ import SwiftUI
 struct ImagePickerPlaceholder: View {
     var body: some View {
         Rectangle()
-            .foregroundStyle(.blue.opacity(0.1))
+            .foregroundStyle(Color(hex: "default"))
             .overlay{
                 Image(systemName: "photo.badge.plus.fill")
                     .resizable()
