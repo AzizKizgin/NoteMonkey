@@ -10,11 +10,16 @@ import SwiftData
 
 @main
 struct ANoteApp: App {
-    let modelContainer : ModelContainer = {
-        let schema = Schema([Note.self,NoteBackground.self])
-        let container = try! ModelContainer(for: schema)
-        return container
-    }()
+    let modelContainer : ModelContainer
+    
+    init() {
+        do{
+            modelContainer = try ModelContainer(for: Note.self, NoteBackground.self, migrationPlan: nil)
+        }
+        catch{
+            fatalError("failed when initialize model container")
+        }
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
