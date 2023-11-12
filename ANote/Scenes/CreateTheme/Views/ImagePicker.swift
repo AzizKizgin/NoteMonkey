@@ -10,7 +10,7 @@ import PhotosUI
 
 struct ImagePicker: View {
     @Binding var imageData: Data?
-    @Binding var selectedImage: PhotosPickerItem?
+    @State var selectedImage: PhotosPickerItem?
     @State private var showError: Bool = false
     var body: some View {
         if let imageData = self.imageData,
@@ -72,5 +72,5 @@ struct ImagePicker: View {
 }
 
 #Preview{
-    ImagePicker(imageData: .constant(nil), selectedImage: .constant(nil))
+    ImagePicker(imageData: .constant(nil))
 }
