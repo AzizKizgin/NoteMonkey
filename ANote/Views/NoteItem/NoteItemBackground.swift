@@ -8,18 +8,39 @@
 import SwiftUI
 import SwiftData
 
-struct NoteItemBackground: ViewModifier {
+struct NoteItemBackground: ViewModifier, Equatable {
     @Query var backgrounds: [NoteBackground]
     let id: String
     let isFullScreen: Bool
+    private var selectedBackground: NoteBackground? {
+        backgrounds.first { $0.id == id }
+    }
     func body(content: Content) -> some View {
         content
             .background{
                 VStack{
                     if id == "0" {
-                        isFullScreen ? Color.default: Color.note
+                        DefaultBackground()
                     }
-                    else if let image = backgrounds.first(where: {$0.id == id})?.image{
+                    else if let customImage = selectedBackground?.customImage, let uiImage = UIImage(data: customImage){
+                            if isFullScreen{
+                                Image(uiImage: uiImage)
+                                    .resizable(resizingMode: .stretch)
+                                    .scaledToFill()
+                            }
+                            else{
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 400, height: 1000)
+                                    .offset(y: 20)
+                                    .frame(width: 400, height: 110)
+                                    .clipped()
+                                    .contentShape(Rectangle())
+                            }
+                     
+                    }
+                    else if let image = selectedBackground?.image{
                         if isFullScreen{
                             Image(image)
                                 .resizable(resizingMode: .stretch)
@@ -36,14 +57,29 @@ struct NoteItemBackground: ViewModifier {
                                 .contentShape(Rectangle())
                         }
                     }
-                    else if let color = backgrounds.first(where: {$0.id == id})?.color{
+                    else if let color = selectedBackground?.color{
                         Color(hex: color)
+                    }
+                    else{
+                        DefaultBackground()
                     }
                 }
                 .ignoresSafeArea()
             }
     }
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.selectedBackground == rhs.selectedBackground
+        &&
+        lhs.backgrounds == rhs.backgrounds
+    }
 }
+
+extension NoteItemBackground{
+    private func DefaultBackground() -> some View {
+        isFullScreen ? Color.default: Color.note
+    }
+}
+
 
 extension View {
     func noteItemBackground(with id: String, isFullScreen: Bool) -> some View {

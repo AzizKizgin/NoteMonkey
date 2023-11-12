@@ -9,8 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct BackgroundPickerList: ViewModifier {
-    @Query(sort: \NoteBackground.createdAt) var backgrounds: [NoteBackground]
+    @Environment(\.modelContext) private var modelContext
+    @Query(filter: #Predicate<NoteBackground>{
+        background in
+        background.image != nil || background.color != nil || background.customImage != nil
+    } , sort: \NoteBackground.createdAt) var backgrounds: [NoteBackground]
     @Binding var selectedBackground: NoteBackground
+    @State private var showCreateTheme: Bool = false
     let isVisible: Bool
 
     func body(content: Content) -> some View {
@@ -24,6 +29,12 @@ struct BackgroundPickerList: ViewModifier {
                                     VStack{
                                         if let image = background.image {
                                             Image(image)
+                                                .resizable()
+                                                .frame(width: 125,height: 200)
+                                                .scaledToFill()
+                                        }
+                                        else if let customImage = background.customImage, let uiImage = UIImage(data: customImage){
+                                            Image(uiImage: uiImage)
                                                 .resizable()
                                                 .frame(width: 125,height: 200)
                                                 .scaledToFill()
@@ -44,7 +55,9 @@ struct BackgroundPickerList: ViewModifier {
                                 })
                                 .buttonStyle(PlainButtonStyle())
                             }
-                            NavigationLink(destination: CreateThemeView()){
+                            Button {
+                                showCreateTheme.toggle()
+                            } label: {
                                 ZStack{
                                     Color.black
                                         .frame(width: 125,height: 200)
@@ -56,14 +69,17 @@ struct BackgroundPickerList: ViewModifier {
                                         .foregroundStyle(Color.black.opacity(0.5))
                                 }
                             }
+
                         }
-                       
                         .fixedSize()
                         .padding(10)
                         .background(Color.accentColor)
                     }
                     .frame(height: 170)
                     .padding(.bottom,10)
+                    .fullScreenCover(isPresented: $showCreateTheme){
+                        CreateThemeView(noteBackground: NoteBackground())
+                    }
                 }
             }
     }
