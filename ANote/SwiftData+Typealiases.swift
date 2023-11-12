@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+import SwiftData
+
+typealias Note = ModelSchemaV1.Note
+typealias NoteBackground = ModelSchemaV1.NoteBackground
