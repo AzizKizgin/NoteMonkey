@@ -144,7 +144,7 @@ extension DeletedNotesView{
         let background = NoteBackground(id: "2", image: "bird",createdAt: Date.now.addingTimeInterval(2*100))
         container.mainContext.insert(background)
         
-        for index in 0...10 {
+        for _ in 0...10 {
             let note = Note(
                 title: "Note Title",
                 content: "Lorem ipsum dolor sit amet",
