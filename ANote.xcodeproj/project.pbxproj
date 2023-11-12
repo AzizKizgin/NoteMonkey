@@ -27,6 +27,8 @@
 		E0987DA12AE18D870007881B /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0987DA02AE18D870007881B /* Calendar.swift */; };
 		E0CC95972ADC55AD00C1AF4A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95962ADC55AD00C1AF4A /* HomeView.swift */; };
 		E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */; };
+		E0CD652E2B0011F2006BA134 /* ModelSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CD652D2B0011F2006BA134 /* ModelSchemaV1.swift */; };
+		E0CD65322B00134D006BA134 /* SwiftData+Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CD65312B00134D006BA134 /* SwiftData+Typealiases.swift */; };
 		E0DFE83D2AD2EE61004C2499 /* ANoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */; };
 		E0DFE83F2AD2EE61004C2499 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE83E2AD2EE61004C2499 /* ContentView.swift */; };
 		E0DFE8412AD2EE62004C2499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0DFE8402AD2EE62004C2499 /* Assets.xcassets */; };
@@ -34,8 +36,6 @@
 		E0DFE84E2AD2EE62004C2499 /* ANoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE84D2AD2EE62004C2499 /* ANoteTests.swift */; };
 		E0DFE8582AD2EE62004C2499 /* ANoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8572AD2EE62004C2499 /* ANoteUITests.swift */; };
 		E0DFE85A2AD2EE62004C2499 /* ANoteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8592AD2EE62004C2499 /* ANoteUITestsLaunchTests.swift */; };
-		E0DFE8682AD2EF0D004C2499 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8672AD2EF0D004C2499 /* Note.swift */; };
-		E0DFE8742AD30358004C2499 /* NoteBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8732AD30358004C2499 /* NoteBackground.swift */; };
 		E0DFE8762AD3070F004C2499 /* NoteListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8752AD3070F004C2499 /* NoteListItem.swift */; };
 		E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DFE8772AD324F9004C2499 /* NoteItemBackground.swift */; };
 		E0ED54EF2ADAFACC0042C355 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0ED54EE2ADAFACC0042C355 /* ImagePicker.swift */; };
@@ -82,6 +82,8 @@
 		E0987DA02AE18D870007881B /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		E0CC95962ADC55AD00C1AF4A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E0CC95992ADC732E00C1AF4A /* HomeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenu.swift; sourceTree = "<group>"; };
+		E0CD652D2B0011F2006BA134 /* ModelSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSchemaV1.swift; sourceTree = "<group>"; };
+		E0CD65312B00134D006BA134 /* SwiftData+Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftData+Typealiases.swift"; sourceTree = "<group>"; };
 		E0DFE8392AD2EE61004C2499 /* ANote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ANote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANoteApp.swift; sourceTree = "<group>"; };
 		E0DFE83E2AD2EE61004C2499 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,8 +94,6 @@
 		E0DFE8532AD2EE62004C2499 /* ANoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0DFE8572AD2EE62004C2499 /* ANoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANoteUITests.swift; sourceTree = "<group>"; };
 		E0DFE8592AD2EE62004C2499 /* ANoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		E0DFE8672AD2EF0D004C2499 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		E0DFE8732AD30358004C2499 /* NoteBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteBackground.swift; sourceTree = "<group>"; };
 		E0DFE8752AD3070F004C2499 /* NoteListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListItem.swift; sourceTree = "<group>"; };
 		E0DFE8772AD324F9004C2499 /* NoteItemBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItemBackground.swift; sourceTree = "<group>"; };
 		E0ED54EE2ADAFACC0042C355 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -207,6 +207,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E0CD652C2B0011D1006BA134 /* ModelSchemas */ = {
+			isa = PBXGroup;
+			children = (
+				E0CD652D2B0011F2006BA134 /* ModelSchemaV1.swift */,
+			);
+			path = ModelSchemas;
+			sourceTree = "<group>";
+		};
 		E0DFE8302AD2EE61004C2499 = {
 			isa = PBXGroup;
 			children = (
@@ -230,15 +238,16 @@
 		E0DFE83B2AD2EE61004C2499 /* ANote */ = {
 			isa = PBXGroup;
 			children = (
+				E0CD652C2B0011D1006BA134 /* ModelSchemas */,
 				E0987D9A2AE189BB0007881B /* Utils */,
 				E06CE6A42AD6F9FB002441F4 /* Resources */,
 				E0DFE86B2AD2F6D2004C2499 /* Views */,
 				E0DFE8692AD2F663004C2499 /* Scenes */,
-				E0DFE8662AD2EF00004C2499 /* Models */,
 				E0DFE83C2AD2EE61004C2499 /* ANoteApp.swift */,
 				E0DFE83E2AD2EE61004C2499 /* ContentView.swift */,
 				E0DFE8402AD2EE62004C2499 /* Assets.xcassets */,
 				E0DFE8422AD2EE62004C2499 /* Preview Content */,
+				E0CD65312B00134D006BA134 /* SwiftData+Typealiases.swift */,
 			);
 			path = ANote;
 			sourceTree = "<group>";
@@ -266,15 +275,6 @@
 				E0DFE8592AD2EE62004C2499 /* ANoteUITestsLaunchTests.swift */,
 			);
 			path = ANoteUITests;
-			sourceTree = "<group>";
-		};
-		E0DFE8662AD2EF00004C2499 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				E0DFE8672AD2EF0D004C2499 /* Note.swift */,
-				E0DFE8732AD30358004C2499 /* NoteBackground.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		E0DFE8692AD2F663004C2499 /* Scenes */ = {
@@ -470,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0ED54EF2ADAFACC0042C355 /* ImagePicker.swift in Sources */,
+				E0CD652E2B0011F2006BA134 /* ModelSchemaV1.swift in Sources */,
 				E0308E7C2AD5E6EB00BFB79E /* ContentEditor.swift in Sources */,
 				E08783CA2AE036850095A78F /* TestItems.swift in Sources */,
 				E0FA61822AD8486A00B3EA8C /* Backgrounds.swift in Sources */,
@@ -480,6 +481,7 @@
 				E08783C52AE031360095A78F /* SettingsView.swift in Sources */,
 				E08783D32AE051D40095A78F /* AddFabButton.swift in Sources */,
 				E08783CC2AE044390095A78F /* TestNoteView.swift in Sources */,
+				E0CD65322B00134D006BA134 /* SwiftData+Typealiases.swift in Sources */,
 				E0DFE8782AD324F9004C2499 /* NoteItemBackground.swift in Sources */,
 				E0ED54F12ADAFB220042C355 /* ImagePickerPlaceHolder.swift in Sources */,
 				E0CC959A2ADC732E00C1AF4A /* HomeMenu.swift in Sources */,
@@ -493,8 +495,6 @@
 				E0308E7E2AD5EB2C00BFB79E /* BackgroundPickerList.swift in Sources */,
 				E07D92852ADEDCBC004CC21D /* MenuButton.swift in Sources */,
 				E08783C22AE02BE30095A78F /* SearchBar.swift in Sources */,
-				E0DFE8742AD30358004C2499 /* NoteBackground.swift in Sources */,
-				E0DFE8682AD2EF0D004C2499 /* Note.swift in Sources */,
 				E0308E792AD5D72D00BFB79E /* UpsertView.swift in Sources */,
 				E05AAD9B2AF6D6200055B4AF /* Int.swift in Sources */,
 				E0987D992AE169830007881B /* ShareNoteButton.swift in Sources */,
