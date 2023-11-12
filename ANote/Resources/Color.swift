@@ -52,11 +52,13 @@ extension Color {
 }
 
 
-func rgbToHex(color: Color) -> String {
-    let resolvedColor = color.resolve(in: .init())
-    let red = Int((resolvedColor.red * 255).rounded(.up))
-    let blue = Int((resolvedColor.blue * 255).rounded(.up))
-    let green = Int((resolvedColor.green * 255).rounded(.up))
-    let hexValue = String(format:"%02X", Int(red)) + String(format:"%02X", Int(green)) + String(format:"%02X", Int(blue))
-    return "#" + hexValue
+func rgbToHex(color: [CGFloat]?) -> String {
+    if let color{
+        let (red,blue,green) = (color[0],color[1],color[2])
+        let hexValue = String(format:"%02X", Int(red)) + String(format:"%02X", Int(green)) + String(format:"%02X", Int(blue))
+        return "#" + hexValue
+    }
+    else {
+        return "#000000"
+    }
 }
