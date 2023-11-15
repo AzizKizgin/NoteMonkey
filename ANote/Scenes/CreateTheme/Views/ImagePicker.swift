@@ -59,7 +59,7 @@ struct ImagePicker: View {
                         }
                     }
                 }
-                .alert("cannot-use-image", isPresented: $showError){
+                .alert("This image cannot be used", isPresented: $showError){
                     Button("ok", role: .cancel) {
                         self.showError.toggle()
                     }
