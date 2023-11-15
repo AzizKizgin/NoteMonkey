@@ -53,10 +53,10 @@ extension Color {
 
 
 func rgbToHex(color: [CGFloat]?) -> String {
-    if let color{
+    if let color = color{
         let (red,blue,green) = (color[0],color[1],color[2])
-        let hexValue = String(format:"%02X", Int(red)) + String(format:"%02X", Int(green)) + String(format:"%02X", Int(blue))
-        return "#" + hexValue
+        
+        return String(format: "#%02X%02X%02X", Int(red * 255), Int(green * 255), Int(blue * 255))
     }
     else {
         return "#000000"
