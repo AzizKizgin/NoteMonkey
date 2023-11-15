@@ -64,7 +64,7 @@ enum ModelSchemaV1: VersionedSchema{
         var id: String
         var image: String?
         var color: String?
-        var customImage: Data?
+        var customImage: String?
         var textColor: String
         var createdAt: Date?
         @Relationship(
@@ -76,9 +76,9 @@ enum ModelSchemaV1: VersionedSchema{
             id: String = UUID().uuidString,
             image: String? = nil,
             color: String? = nil,
-            textColor: String = "#ffffff",
+            textColor: String = "#000000",
             createdAt:Date = .now,
-            customImage: Data? = nil
+            customImage: String? = nil
         ) {
             self.id = id
             self.image = image
