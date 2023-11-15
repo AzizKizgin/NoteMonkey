@@ -9,7 +9,7 @@ import Foundation
 
 struct Backgrounds {
     static let backgrounds: [NoteBackground] = [
-        NoteBackground(id: "0", textColor: "text",createdAt: Date.now.addingTimeInterval(0*100)),
+        NoteBackground(id: "0",color: "note", textColor: "text",createdAt: Date.now.addingTimeInterval(0*100)),
         NoteBackground(id: "1", image: "astronaut",createdAt: Date.now.addingTimeInterval(1*100)),
         NoteBackground(id: "2", image: "bird",createdAt: Date.now.addingTimeInterval(2*100)),
         NoteBackground(id: "3", image: "bengal",createdAt: Date.now.addingTimeInterval(3*100)),
