@@ -9,12 +9,19 @@ import SwiftUI
 import PhotosUI
 
 struct CreateThemeView: View {
+    @Bindable var noteBackground: NoteBackground
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
-    @Bindable var noteBackground: NoteBackground
     @State private var showPreview: Bool = false
-    @State private var selectedColor: Color = .black
+    @State private var selectedColor: Color = Color(hex: "text")
+    @State private var imageData: Data?
     @State private var showAlert: Bool = false
+    @State private var errorMessage: String = ""
+    
+    init(noteBackground: NoteBackground) {
+        self.noteBackground = noteBackground
+    }
+
     var body: some View {
         VStack{
             HStack{
@@ -48,7 +55,7 @@ struct CreateThemeView: View {
             if !showPreview{
                 ColorPicker(selection: $selectedColor){
                     Text("Text Color")
-                        .foregroundStyle(Color(hex: noteBackground.textColor))
+                        .foregroundStyle(selectedColor)
                         .font(.title2)
                         .bold()
                         .frame(maxWidth: .infinity,alignment: .leading)
@@ -56,7 +63,7 @@ struct CreateThemeView: View {
                 .padding()
                 .onChange(of: selectedColor){ _, newColor in
                     let uiColor = UIColor(newColor)
-                    noteBackground.color = rgbToHex(color: uiColor.cgColor.components)
+                    noteBackground.textColor = rgbToHex(color: uiColor.cgColor.components)
                 }
             }
             VStack(alignment:.leading){
@@ -78,13 +85,13 @@ struct CreateThemeView: View {
                             .font(.title)
                             .bold()
                             .frame(maxWidth: .infinity,alignment: .leading)
-                            .foregroundStyle(Color(hex: noteBackground.textColor))
+                            .foregroundStyle(selectedColor)
                         Text("Start to write")
                             .frame(maxWidth:.infinity,alignment: .topLeading)
                             .font(.title3)
                             .padding(.top,8)
                             .padding(.leading,5)
-                            .foregroundStyle(Color(hex: noteBackground.textColor))
+                            .foregroundStyle(selectedColor)
                     }
                 }
             }
@@ -93,7 +100,7 @@ struct CreateThemeView: View {
             .padding()
             .background{
                 if showPreview {
-                    if let imageData = noteBackground.customImage,
+                    if let imageData = imageData,
                        let uiImage = UIImage(data: imageData){
                         Image(uiImage: uiImage)
                             .resizable()
@@ -105,34 +112,61 @@ struct CreateThemeView: View {
                     }
                 }
                 else{
-                    ImagePicker(imageData: $noteBackground.customImage)
+                    ImagePicker(imageData: $imageData)
                 }
             }
-            .foregroundStyle(Color(hex: noteBackground.color ?? "default"))
-            .alert("Select an image to continue", isPresented: $showAlert) {
+            .foregroundStyle(Color(selectedColor))
+            .alert(errorMessage, isPresented: $showAlert) {
                 Button("OK") { }
             }
             
         }
+        .onAppear{
+            selectedColor = Color(hex: noteBackground.textColor)
+            getImage()
+        }
+        .background(.default)
     }
 }
 
 extension CreateThemeView{
-    private func close(){
-        if noteBackground.customImage == nil {
+    func save(){
+        if let imageData{
+            guard let uiImage = UIImage(data: imageData) else {
+                self.errorMessage = "This image cannot be used"
+                self.showAlert.toggle()
+                return
+            }
+            do {
+                try ImageService.saveImage(image: uiImage, imageName: noteBackground.id)
+                noteBackground.customImage = noteBackground.id
+                modelContext.insert(noteBackground)
+                try modelContext.save()
+                dismiss()
+            } catch ImageError.imageDataConversion {
+                self.errorMessage = "An error occurred while processing the image"
+                self.showAlert.toggle()
+            } catch ImageError.fileWrite{
+                self.errorMessage = "An error occurred while saving the image"
+                self.showAlert.toggle()
+            } catch {
+                self.errorMessage = "Something went wrong"
+                self.showAlert.toggle()
+            }
+        }
+    }
+    
+    func getImage(){
+       ImageService.loadImage(imageName: noteBackground.id){ image in
+            self.imageData = image
+        }
+    }
+    
+    func close(){
+        if noteBackground.customImage == nil && imageData == nil{
             modelContext.delete(noteBackground)
         }
         dismiss()
-    }
-    
-    private func save(){
-        if noteBackground.customImage == nil {
-            showAlert.toggle()
-        }
-        else{
-            modelContext.insert(noteBackground)
-            dismiss()
-        }
     }
 }
 
