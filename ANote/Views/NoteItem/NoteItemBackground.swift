@@ -8,10 +8,11 @@
 import SwiftUI
 import SwiftData
 
-struct NoteItemBackground: ViewModifier, Equatable {
+struct NoteItemBackground: ViewModifier {
     @Query var backgrounds: [NoteBackground]
     let id: String
     let isFullScreen: Bool
+    @State var customImage: Data?
     private var selectedBackground: NoteBackground? {
         backgrounds.first { $0.id == id }
     }
@@ -22,7 +23,8 @@ struct NoteItemBackground: ViewModifier, Equatable {
                     if id == "0" {
                         DefaultBackground()
                     }
-                    else if let customImage = selectedBackground?.customImage, let uiImage = UIImage(data: customImage){
+                    else if let customImage = customImage,
+                                let uiImage = UIImage(data: customImage,scale: 1.2){
                             if isFullScreen{
                                 Image(uiImage: uiImage)
                                     .resizable(resizingMode: .stretch)
@@ -66,11 +68,16 @@ struct NoteItemBackground: ViewModifier, Equatable {
                 }
                 .ignoresSafeArea()
             }
-    }
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.selectedBackground == rhs.selectedBackground
-        &&
-        lhs.backgrounds == rhs.backgrounds
+            .onChange(of: id){
+                ImageService.loadImage(imageName: id) { imageData in
+                    self.customImage = imageData
+                  }
+            }
+            .onAppear{
+                ImageService.loadImage(imageName: selectedBackground?.customImage ?? "") { imageData in
+                    self.customImage = imageData
+                  }
+            }
     }
 }
 
