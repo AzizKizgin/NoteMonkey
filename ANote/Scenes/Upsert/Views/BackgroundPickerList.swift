@@ -13,11 +13,10 @@ struct BackgroundPickerList: ViewModifier {
     @Query(filter: #Predicate<NoteBackground>{
         background in
         background.image != nil || background.color != nil || background.customImage != nil
-    } , sort: \NoteBackground.createdAt) var backgrounds: [NoteBackground]
+    } , sort: [SortDescriptor(\NoteBackground.createdAt)]) var backgrounds: [NoteBackground]
     @Binding var selectedBackground: NoteBackground
     @State private var showCreateTheme: Bool = false
     let isVisible: Bool
-
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .bottom){
@@ -33,11 +32,8 @@ struct BackgroundPickerList: ViewModifier {
                                                 .frame(width: 125,height: 200)
                                                 .scaledToFill()
                                         }
-                                        else if let customImage = background.customImage, let uiImage = UIImage(data: customImage){
-                                            Image(uiImage: uiImage)
-                                                .resizable()
-                                                .frame(width: 125,height: 200)
-                                                .scaledToFill()
+                                        else if let customImage = background.customImage {
+                                            CustomImageItem(imageName: customImage)
                                         }
                                         else {
                                             ZStack{
