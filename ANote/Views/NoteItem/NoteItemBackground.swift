@@ -12,7 +12,7 @@ struct NoteItemBackground: ViewModifier {
     @Query var backgrounds: [NoteBackground]
     let id: String
     let isFullScreen: Bool
-    @State var customImage: Data?
+    @State var customImage: UIImage?
     private var selectedBackground: NoteBackground? {
         backgrounds.first { $0.id == id }
     }
@@ -23,15 +23,14 @@ struct NoteItemBackground: ViewModifier {
                     if id == "0" {
                         DefaultBackground()
                     }
-                    else if let customImage = customImage,
-                                let uiImage = UIImage(data: customImage,scale: 1.2){
+                    else if let customImage = customImage {
                             if isFullScreen{
-                                Image(uiImage: uiImage)
+                                Image(uiImage: customImage)
                                     .resizable(resizingMode: .stretch)
                                     .scaledToFill()
                             }
                             else{
-                                Image(uiImage: uiImage)
+                                Image(uiImage: customImage)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 400, height: 1000)
@@ -68,14 +67,16 @@ struct NoteItemBackground: ViewModifier {
                 }
                 .ignoresSafeArea()
             }
-            .onChange(of: id){
-                ImageService.loadImage(imageName: id) { imageData in
-                    self.customImage = imageData
-                  }
+            .onChange(of: selectedBackground){
+                if let selectedBackgroundImage = selectedBackground?.customImage {
+                    ImageService.loadImage(imageName: selectedBackgroundImage) { image in
+                        self.customImage = image
+                      }
+                }
             }
             .onAppear{
-                ImageService.loadImage(imageName: selectedBackground?.customImage ?? "") { imageData in
-                    self.customImage = imageData
+                ImageService.loadImage(imageName: selectedBackground?.customImage ?? "") { image in
+                    self.customImage = image
                   }
             }
     }
