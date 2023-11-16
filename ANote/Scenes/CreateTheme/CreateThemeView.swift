@@ -14,7 +14,7 @@ struct CreateThemeView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var showPreview: Bool = false
     @State private var selectedColor: Color = Color(hex: "text")
-    @State private var imageData: Data?
+    @State private var customImage: UIImage?
     @State private var showAlert: Bool = false
     @State private var errorMessage: String = ""
     
@@ -100,9 +100,8 @@ struct CreateThemeView: View {
             .padding()
             .background{
                 if showPreview {
-                    if let imageData = imageData,
-                       let uiImage = UIImage(data: imageData){
-                        Image(uiImage: uiImage)
+                    if let customImage = customImage {
+                        Image(uiImage: customImage)
                             .resizable()
                             .ignoresSafeArea()
                     }
@@ -112,7 +111,7 @@ struct CreateThemeView: View {
                     }
                 }
                 else{
-                    ImagePicker(imageData: $imageData)
+                    ImagePicker(image: $customImage)
                 }
             }
             .foregroundStyle(Color(selectedColor))
@@ -131,14 +130,9 @@ struct CreateThemeView: View {
 
 extension CreateThemeView{
     func save(){
-        if let imageData{
-            guard let uiImage = UIImage(data: imageData) else {
-                self.errorMessage = "This image cannot be used"
-                self.showAlert.toggle()
-                return
-            }
+        if let customImage{
             do {
-                try ImageService.saveImage(image: uiImage, imageName: noteBackground.id)
+                try ImageService.saveImage(image: customImage, imageName: noteBackground.id)
                 noteBackground.customImage = noteBackground.id
                 modelContext.insert(noteBackground)
                 try modelContext.save()
@@ -158,12 +152,12 @@ extension CreateThemeView{
     
     func getImage(){
        ImageService.loadImage(imageName: noteBackground.id){ image in
-            self.imageData = image
+            self.customImage = image
         }
     }
     
     func close(){
-        if noteBackground.customImage == nil && imageData == nil{
+        if noteBackground.customImage == nil && customImage == nil{
             modelContext.delete(noteBackground)
         }
         dismiss()
