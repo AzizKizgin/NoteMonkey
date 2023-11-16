@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct CustomImageItem: View {
-    let imageName: String
-    @State private var uiImage: UIImage?
+    let image: UIImage?
     var body: some View {
         VStack{
-            if let uiImage{
-                Image(uiImage: uiImage)
+            if let image{
+                Image(uiImage: image)
                     .resizable()
                     .frame(width: 125,height: 200)
                     .scaledToFill()
@@ -26,24 +25,9 @@ struct CustomImageItem: View {
                 }
             }
         }
-        .onAppear{
-            if self.uiImage == nil {
-                if let cachedImage = ImageCache.shared.get(forKey: imageName){
-                    self.uiImage = cachedImage
-                }
-                else{
-                    ImageService.loadImage(imageName: imageName){ imageData in
-                        if let imageData, let uiImage = UIImage(data: imageData) {
-                            self.uiImage = uiImage
-                            ImageCache.shared.set(uiImage, forKey: imageName)
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
 #Preview {
-    CustomImageItem(imageName: "")
+    CustomImageItem(image: nil)
 }
