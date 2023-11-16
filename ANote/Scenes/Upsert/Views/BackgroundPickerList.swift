@@ -8,6 +8,11 @@
 import SwiftUI
 import SwiftData
 
+struct CustomImage {
+    var image: UIImage
+    var imageName: String
+}
+
 struct BackgroundPickerList: ViewModifier {
     @Environment(\.modelContext) private var modelContext
     @Query(filter: #Predicate<NoteBackground>{
@@ -16,6 +21,7 @@ struct BackgroundPickerList: ViewModifier {
     } , sort: [SortDescriptor(\NoteBackground.createdAt)]) var backgrounds: [NoteBackground]
     @Binding var selectedBackground: NoteBackground
     @State private var showCreateTheme: Bool = false
+    @State private var images: [CustomImage] = []
     let isVisible: Bool
     func body(content: Content) -> some View {
         content
@@ -33,7 +39,7 @@ struct BackgroundPickerList: ViewModifier {
                                                 .scaledToFill()
                                         }
                                         else if let customImage = background.customImage {
-                                            CustomImageItem(imageName: customImage)
+                                            CustomImageItem(image: images.first(where: {$0.imageName == customImage})?.image)
                                         }
                                         else {
                                             ZStack{
@@ -75,6 +81,19 @@ struct BackgroundPickerList: ViewModifier {
                     .padding(.bottom,10)
                     .fullScreenCover(isPresented: $showCreateTheme){
                         CreateThemeView(noteBackground: NoteBackground())
+                    }
+                }
+            }
+            .onAppear{
+                let customImages = backgrounds.filter({$0.customImage != nil}).map({$0.customImage})
+                customImages.forEach{ imageName in
+                    if self.images.first(where: {$0.imageName == imageName}) == nil, let imageName = imageName{
+                        ImageService.loadImage(imageName: imageName){ image in
+                            if let image {
+                                self.images.append(CustomImage(image: image, imageName: imageName))
+                                ImageCache.shared.set(image, forKey: imageName)
+                            }
+                        }
                     }
                 }
             }
