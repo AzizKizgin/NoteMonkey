@@ -9,17 +9,16 @@ import SwiftUI
 import PhotosUI
 
 struct ImagePicker: View {
-    @Binding var imageData: Data?
+    @Binding var image: UIImage?
     @State var selectedImage: PhotosPickerItem?
     @State private var showError: Bool = false
     var body: some View {
-        if let imageData = self.imageData,
-           let uiImage = UIImage(data: imageData){
-            Image(uiImage: uiImage)
+        if let image = self.image{
+            Image(uiImage: image)
                 .resizable()
                 .overlay(alignment:.topTrailing){
                     Button {
-                        self.imageData = nil
+                        self.image = nil
                         self.selectedImage = nil
                     } label: {
                         Image(systemName: "xmark.circle.fill")
@@ -52,7 +51,7 @@ struct ImagePicker: View {
                                     return
                                 }
                                 
-                                self.imageData = data
+                                self.image = UIImage(data: data)
                             }
                         } catch {
                             self.showError.toggle()
@@ -72,5 +71,5 @@ struct ImagePicker: View {
 }
 
 #Preview{
-    ImagePicker(imageData: .constant(nil))
+    ImagePicker(image: .constant(nil))
 }
