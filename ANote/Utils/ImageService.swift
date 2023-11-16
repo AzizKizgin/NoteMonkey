@@ -39,37 +39,46 @@ struct ImageService{
         }
     }
     
-    static func loadImage(imageName: String, completion: @escaping (Data?) -> Void) {
+    static func loadImage(imageName: String, completion: @escaping (UIImage?) -> Void) {
         guard !imageName.isEmpty else {
             completion(nil)
             return
         }
-        let fileManager = FileManager.default
-        let appName = "ANote"
         DispatchQueue.global(qos: .background).async {
             do {
-                let documentsDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                let appFolderURL = documentsDirectory.appendingPathComponent(appName)
-                guard fileManager.fileExists(atPath: appFolderURL.path) else {
-                    print("App folder does not exist")
+                if  let cachedImage = ImageCache.shared.get(forKey: imageName){
                     DispatchQueue.main.async {
-                        completion(nil)
+                        completion(cachedImage)
                     }
                     return
                 }
-                let fileURL = appFolderURL.appendingPathComponent("image_\(imageName).jpg")
-                guard fileManager.fileExists(atPath: fileURL.path) else {
-                    print("Image file 'image_\(imageName).jpg' does not exist")
+                else {
+                    let fileManager = FileManager.default
+                    let appName = "ANote"
+                    let documentsDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                    let appFolderURL = documentsDirectory.appendingPathComponent(appName)
+                    guard fileManager.fileExists(atPath: appFolderURL.path) else {
+                        print("App folder does not exist")
+                        DispatchQueue.main.async {
+                            completion(nil)
+                        }
+                        return
+                    }
+                    let fileURL = appFolderURL.appendingPathComponent("image_\(imageName).jpg")
+                    guard fileManager.fileExists(atPath: fileURL.path) else {
+                        print("Image file 'image_\(imageName).jpg' does not exist")
+                        DispatchQueue.main.async {
+                            completion(nil)
+                        }
+                        return
+                    }
+                    let imageData = try Data(contentsOf: fileURL)
                     DispatchQueue.main.async {
-                        completion(nil)
+                        let uIImage = UIImage(data: imageData)
+                        completion(uIImage)
                     }
                     return
                 }
-                let imageData = try Data(contentsOf: fileURL)
-                DispatchQueue.main.async {
-                    completion(imageData)
-                }
-                return
             } catch {
                 DispatchQueue.main.async {
                     completion(nil)
