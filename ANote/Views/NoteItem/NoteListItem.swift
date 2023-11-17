@@ -31,7 +31,7 @@ struct NoteListItem: View {
                         .lineLimit(isListView ? 4 : 10)
                 }
                 HStack(spacing: 5){
-                    Text(Helpers.localizedDate(date: getDate() ?? note.createdAt))
+                    Text(Helpers.localizedDate(date: note.createdAt))
                         .font(.footnote)
                     if note.isPinned == 1 && note.deletedAt == nil {
                         VStack(alignment:.center){
@@ -85,16 +85,6 @@ struct NoteListItem: View {
         .fullScreenCover(isPresented: $goDetail ){
             UpsertView(note: note)
         }
-    }
-}
-
-extension NoteListItem{
-    func getDate() -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.locale = Locale.current
-        return dateFormatter.date(from: "2022-10-14T11:42:00") // replace Date String
     }
 }
 
