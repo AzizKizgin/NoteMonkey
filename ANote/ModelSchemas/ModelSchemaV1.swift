@@ -76,7 +76,7 @@ enum ModelSchemaV1: VersionedSchema{
             id: String = UUID().uuidString,
             image: String? = nil,
             color: String? = nil,
-            textColor: String = "#000000",
+            textColor: String = "#ffffff",
             createdAt:Date = .now,
             customImage: String? = nil
         ) {
