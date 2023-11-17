@@ -19,15 +19,17 @@ struct NoteListItem: View {
             
         }, label: {
             VStack(spacing:10){
-                Text(note.title)
+                Text(!note.title.isEmpty ? note.title : note.content)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .font(.title3)
                     .bold()
-                Text(note.content)
-                    .frame(maxWidth: .infinity,alignment: .leading)
-                    .font(.subheadline)
-                    .lineLimit(isListView ? 4 : 10)
+                if !note.content.isEmpty && !note.title.isEmpty{
+                    Text(note.content)
+                        .frame(maxWidth: .infinity,alignment: .leading)
+                        .font(.subheadline)
+                        .lineLimit(isListView ? 4 : 10)
+                }
                 HStack(spacing: 5){
                     Text(Helpers.localizedDate(date: getDate() ?? note.createdAt))
                         .font(.footnote)
@@ -36,13 +38,13 @@ struct NoteListItem: View {
                             Image(systemName: "pin")
                                 .font(.system(size: 16))
                         }
-                            .foregroundColor(Color.accentColor)
+                            .foregroundStyle(Color.accentColor)
                     }
                 } .frame(maxWidth: .infinity,alignment: .leading)
             }
             .padding()
             .frame(maxWidth: .infinity,alignment: .topLeading)
-            .frame(height: 110)
+            .frame(height: note.title.isEmpty ? 85 : 110)
             .noteItemBackground(with: note.background?.id ?? "0", isFullScreen: false)
             .foregroundStyle(Color(hex: note.background?.textColor ?? "textColor"))
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
@@ -54,7 +56,7 @@ struct NoteListItem: View {
                         }
                     }
                         .frame(width: 30, height: 30)
-                        .foregroundColor(Color.white)
+                        .foregroundStyle(Color.white)
                         .background(Color.accentColor)
                         .clipShape(Circle())
                         .buttonStyle(.borderedProminent)
@@ -99,5 +101,6 @@ extension NoteListItem{
 #Preview {
     NavigationStack{
         TestNoteView()
+           
     }
 }
