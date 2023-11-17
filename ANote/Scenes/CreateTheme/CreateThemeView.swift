@@ -44,11 +44,14 @@ struct CreateThemeView: View {
                 .foregroundStyle(Color.accentColor)
                 Spacer()
                 Button {
-                    save()
+                    Task{
+                        await save()
+                    }
                 } label: {
                     Text("Save")
                     
                 }
+                .disabled(noteBackground.customImage == nil && customImage == nil)
                 .foregroundStyle(Color.accentColor)
             }
             .padding(.horizontal)
@@ -121,18 +124,18 @@ struct CreateThemeView: View {
             
         }
         .onAppear{
-            selectedColor = Color(hex: noteBackground.textColor)
-            getImage()
+            DispatchQueue.main.async{
+                selectedColor = Color(hex: noteBackground.textColor)
+            }
         }
         .background(.default)
     }
 }
 
 extension CreateThemeView{
-    func save(){
+    func save() async{
         if let customImage{
             do {
-                try ImageService.saveImage(image: customImage, imageName: noteBackground.id)
                 noteBackground.customImage = noteBackground.id
                 modelContext.insert(noteBackground)
                 try modelContext.save()
@@ -147,12 +150,6 @@ extension CreateThemeView{
                 self.errorMessage = "Something went wrong"
                 self.showAlert.toggle()
             }
-        }
-    }
-    
-    func getImage(){
-       ImageService.loadImage(imageName: noteBackground.id){ image in
-            self.customImage = image
         }
     }
     

@@ -21,7 +21,6 @@ struct BackgroundPickerList: ViewModifier {
     } , sort: [SortDescriptor(\NoteBackground.createdAt)]) var backgrounds: [NoteBackground]
     @Binding var selectedBackground: NoteBackground
     @State private var showCreateTheme: Bool = false
-    @State private var images: [CustomImage] = []
     let isVisible: Bool
     func body(content: Content) -> some View {
         content
@@ -37,9 +36,6 @@ struct BackgroundPickerList: ViewModifier {
                                                 .resizable()
                                                 .frame(width: 125,height: 200)
                                                 .scaledToFill()
-                                        }
-                                        else if let customImage = background.customImage {
-                                            CustomImageItem(image: images.first(where: {$0.imageName == customImage})?.image)
                                         }
                                         else {
                                             ZStack{
@@ -57,21 +53,20 @@ struct BackgroundPickerList: ViewModifier {
                                 })
                                 .buttonStyle(PlainButtonStyle())
                             }
-                            Button {
-                                showCreateTheme.toggle()
-                            } label: {
-                                ZStack{
-                                    Color.black
-                                        .frame(width: 125,height: 200)
-                                        .opacity(0.2)
-                                    Image(systemName: "plus")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 35)
-                                        .foregroundStyle(Color.black.opacity(0.5))
-                                }
-                            }
-
+//                            Button {
+//                                showCreateTheme.toggle()
+//                            } label: {
+//                                ZStack{
+//                                    Color.black
+//                                        .frame(width: 125,height: 200)
+//                                        .opacity(0.2)
+//                                    Image(systemName: "plus")
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(width: 35)
+//                                        .foregroundStyle(Color.black.opacity(0.5))
+//                                }
+//                            }
                         }
                         .fixedSize()
                         .padding(10)
@@ -79,22 +74,9 @@ struct BackgroundPickerList: ViewModifier {
                     }
                     .frame(height: 170)
                     .padding(.bottom,10)
-                    .fullScreenCover(isPresented: $showCreateTheme){
-                        CreateThemeView(noteBackground: NoteBackground())
-                    }
-                }
-            }
-            .onAppear{
-                let customImages = backgrounds.filter({$0.customImage != nil}).map({$0.customImage})
-                customImages.forEach{ imageName in
-                    if self.images.first(where: {$0.imageName == imageName}) == nil, let imageName = imageName{
-                        ImageService.loadImage(imageName: imageName){ image in
-                            if let image {
-                                self.images.append(CustomImage(image: image, imageName: imageName))
-                                ImageCache.shared.set(image, forKey: imageName)
-                            }
-                        }
-                    }
+//                    .fullScreenCover(isPresented: $showCreateTheme){
+//                        CreateThemeView(noteBackground: NoteBackground())
+//                    }
                 }
             }
     }

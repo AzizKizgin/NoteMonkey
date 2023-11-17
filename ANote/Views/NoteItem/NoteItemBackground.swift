@@ -67,18 +67,6 @@ struct NoteItemBackground: ViewModifier {
                 }
                 .ignoresSafeArea()
             }
-            .onChange(of: selectedBackground){
-                if let selectedBackgroundImage = selectedBackground?.customImage {
-                    ImageService.loadImage(imageName: selectedBackgroundImage) { image in
-                        self.customImage = image
-                      }
-                }
-            }
-            .onAppear{
-                ImageService.loadImage(imageName: selectedBackground?.customImage ?? "") { image in
-                    self.customImage = image
-                  }
-            }
     }
 }
 
