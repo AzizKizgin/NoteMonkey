@@ -15,9 +15,11 @@ struct ContentView: View {
         background.customImage != nil
     }) var backgrounds: [NoteBackground]
     @AppStorage("isDefaultsSaved") var isAllReadySaved: Bool = false
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     var body: some View {
         NavigationStack{
             HomeView()
+                .preferredColorScheme(isDarkMode ? .dark: .light)
                 .onAppear{
                     DispatchQueue.global(qos: .background).async{
                         if !isAllReadySaved {
