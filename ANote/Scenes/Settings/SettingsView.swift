@@ -8,12 +8,31 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.dismiss) var dismiss
+    @AppStorage("isDarkMode") var isDarkMode: Bool = true
     var body: some View {
-        VStack{
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            VStack{
+                Form{
+                    Section(header: Text("Appearance")) {
+                        Toggle("Dark Mode", isOn: $isDarkMode)
+                    }
+                }
+            }
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading, content: {
+                    Button(action: {dismiss()}, label: {
+                        Text("Close")
+                            .font(.system(size: 20))
+                            .foregroundStyle(Color.accentColor)
+                    })
+                    .buttonStyle(.plain)
+                })
+            }
+            .background(Color.default)
+       
         }
-        .background(Color.default)
-      
+        .preferredColorScheme(isDarkMode ? .dark: .light)
     }
 }
 
