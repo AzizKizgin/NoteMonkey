@@ -15,8 +15,6 @@ struct DeletedNotesMenu: View {
     let onCancelSelect: () -> Void
     let onSelectAll: () -> Void
     let onChangeListType: () -> Void
-    let onDelete: () -> Void
-    let onUnDelete: () -> Void
     var body: some View {
         VStack{
             if !showSelectionMenu{
@@ -27,14 +25,6 @@ struct DeletedNotesMenu: View {
                     })
                 }
                 .frame(maxWidth: .infinity)
-                .overlay(alignment: .leading){
-                    Button(action: {dismiss()}, label: {
-                        Text("Close")
-                            .font(.system(size: 20))
-                            .foregroundStyle(Color.accentColor)
-                    })
-                    .buttonStyle(.plain)
-                }
             }
             else{
                 HStack{
@@ -44,9 +34,14 @@ struct DeletedNotesMenu: View {
                 }
                 .overlay(alignment: .center){
                     HStack(spacing:20){
-                        MenuButton(iconName: "trash", onPress: onDelete)
-                        MenuButton(iconName: "arrowshape.turn.up.left.2", onPress: onUnDelete)
+                        if selectedItemCount == 0 {
+                            Text("Select Items")
+                        }
+                        else{
+                            Text("^[\(selectedItemCount) note](inflect: true)")
+                        }
                     }
+                    .foregroundStyle(Color.accentColor)
                 }
             }
         }
@@ -61,5 +56,5 @@ struct DeletedNotesMenu: View {
 }
 
 #Preview {
-    DeletedNotesMenu(showSelectionMenu: true, selectedItemCount: 10, onCancelSelect: {}, onSelectAll: {}, onChangeListType: {},onDelete: {},onUnDelete: {})
+    DeletedNotesMenu(showSelectionMenu: true, selectedItemCount: 10, onCancelSelect: {}, onSelectAll: {}, onChangeListType: {})
 }
