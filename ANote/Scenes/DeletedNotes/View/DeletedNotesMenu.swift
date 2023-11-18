@@ -25,6 +25,14 @@ struct DeletedNotesMenu: View {
                     })
                 }
                 .frame(maxWidth: .infinity)
+                .overlay(alignment: .leading){
+                    Button(action: {dismiss()}, label: {
+                        Text("Close")
+                            .font(.system(size: 20))
+                            .foregroundStyle(Color.accentColor)
+                    })
+                    .buttonStyle(.plain)
+                }
             }
             else{
                 HStack{
