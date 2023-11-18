@@ -113,10 +113,7 @@ extension UpsertView{
         let background2 = NoteBackground(id: "1", color: "#223233", textColor: "#000", createdAt: Date.now.addingTimeInterval(2*100))
         container.mainContext.insert(background2)
         
-        return
-            NavigationStack{
-                UpsertView(note: Note())
-        }
+        return UpsertView(note: Note())
         .modelContainer(container)
 }
   
