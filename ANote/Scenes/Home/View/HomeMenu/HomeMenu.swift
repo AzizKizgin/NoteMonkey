@@ -11,6 +11,7 @@ struct HomeMenu: View {
     @State private var isListView: Bool = true
     @State private var isAllSelected: Bool = false
     @State private var showDeletedNotes: Bool = false
+    @State private var showSettings: Bool = false
     let showSelectionMenu: Bool
     let selectedItemCount: Int
     let onCancelSelect: () -> Void
@@ -21,9 +22,9 @@ struct HomeMenu: View {
             if !showSelectionMenu{
                 HStack{
                     Spacer()
-                    MenuLinkButton(iconName: "gear"){
-                        SettingsView()
-                    }
+                    MenuButton(iconName: "gear", onPress: {
+                        showSettings.toggle()
+                    })
                 }
                 .overlay(alignment: .center){
                     HStack(spacing:20){
@@ -48,7 +49,7 @@ struct HomeMenu: View {
                             Text("Select Items")
                         }
                         else{
-                            Text("^[\(selectedItemCount) item](inflect: true)")
+                            Text("^[\(selectedItemCount) note](inflect: true)")
                         }
                     }
                     .foregroundStyle(Color.accentColor)
@@ -66,6 +67,9 @@ struct HomeMenu: View {
         .transition(.move(edge: .top).combined(with: .opacity))
         .fullScreenCover(isPresented: $showDeletedNotes){
             DeletedNotesView()
+        }
+        .fullScreenCover(isPresented: $showSettings){
+            SettingsView()
         }
     }
 }
