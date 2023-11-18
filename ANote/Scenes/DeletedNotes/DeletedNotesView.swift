@@ -22,7 +22,6 @@ struct DeletedNotesView: View {
     @State var selectedNotes: [String] = []
     @State var isListView: Bool = true
     @State var showList: Bool = true
-    @State var showAlert: Bool = false
     
     var filteredNotes: [Note] {
         guard !searchText.isEmpty else {return notes}
@@ -31,7 +30,7 @@ struct DeletedNotesView: View {
     
     var body: some View {
         VStack{
-            DeletedNotesMenu(showSelectionMenu: showSelectionMenu, selectedItemCount: selectedNotes.count, onCancelSelect: onCancelPress, onSelectAll: onSelectAll, onChangeListType: onChangeListType, onDelete: showDeleteAlert, onUnDelete: onUnDelete)
+            DeletedNotesMenu(showSelectionMenu: showSelectionMenu, selectedItemCount: selectedNotes.count, onCancelSelect: onCancelPress, onSelectAll: onSelectAll, onChangeListType: onChangeListType)
             if  !showSelectionMenu {
                 SearchBar(text: $searchText, placeHolder: "Search Notes...")
             }
@@ -75,13 +74,10 @@ struct DeletedNotesView: View {
                 }
             }
         }
-        .alert("Delete Note", isPresented: $showAlert, presenting: "Selected note/notes will delete") {article in
-            Button("Delete",role:.destructive) {
-                deleteSelectedNotes()
+        .overlay(alignment: .bottom){
+            if showSelectionMenu && selectedNotes.count > 0 {
+                DeletedNotesBottomBar(onUnDelete: onUnDelete, deleteSelectedNotes: deleteSelectedNotes, selectedItemCount: selectedNotes.count)
             }
-            Button("Cancel", role: .cancel) {}
-        } message: {article in
-            Text(article.description)
         }
         .background(Color.default)
         .animation(.easeInOut(duration: 0.2),value: selectedNotes)
@@ -141,10 +137,6 @@ extension DeletedNotesView{
         }
         selectedNotes.removeAll()
         showSelectionMenu.toggle()
-    }
-    
-    private func showDeleteAlert(){
-        self.showAlert.toggle()
     }
 }
 
