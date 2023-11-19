@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @AppStorage("isDarkMode") var isDarkMode: Bool = true
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     var body: some View {
         NavigationStack{
             VStack{
