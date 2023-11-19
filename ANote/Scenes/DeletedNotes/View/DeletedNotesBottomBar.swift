@@ -34,7 +34,7 @@ struct DeletedNotesBottomBar: View {
                 deleteSelectedNotes()
             }
             Button("Cancel", role: .cancel) {}
-        } message: {Text("^[\(selectedItemCount) note](inflect: true) will delete")}
+        } message: {Text("^[\(selectedItemCount) note](inflect: true) will be deleted")}
     }
 }
 
