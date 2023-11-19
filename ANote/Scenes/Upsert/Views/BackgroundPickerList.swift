@@ -53,20 +53,6 @@ struct BackgroundPickerList: ViewModifier {
                                 })
                                 .buttonStyle(PlainButtonStyle())
                             }
-//                            Button {
-//                                showCreateTheme.toggle()
-//                            } label: {
-//                                ZStack{
-//                                    Color.black
-//                                        .frame(width: 125,height: 200)
-//                                        .opacity(0.2)
-//                                    Image(systemName: "plus")
-//                                        .resizable()
-//                                        .scaledToFit()
-//                                        .frame(width: 35)
-//                                        .foregroundStyle(Color.black.opacity(0.5))
-//                                }
-//                            }
                         }
                         .fixedSize()
                         .padding(10)
@@ -74,9 +60,6 @@ struct BackgroundPickerList: ViewModifier {
                     }
                     .frame(height: 170)
                     .padding(.bottom,10)
-//                    .fullScreenCover(isPresented: $showCreateTheme){
-//                        CreateThemeView(noteBackground: NoteBackground())
-//                    }
                 }
             }
     }

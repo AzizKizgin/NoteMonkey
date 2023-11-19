@@ -25,11 +25,6 @@ struct CreateThemeView: View {
     var body: some View {
         VStack{
             HStack{
-                Button(action: close, label: {
-                    Text("close")
-                })
-                .foregroundStyle(Color.accentColor)
-                .buttonStyle(.plain)
                 Spacer()
                 Button {
                     showPreview.toggle()
@@ -43,16 +38,6 @@ struct CreateThemeView: View {
                 }
                 .foregroundStyle(Color.accentColor)
                 Spacer()
-                Button {
-                    Task{
-                        await save()
-                    }
-                } label: {
-                    Text("Save")
-                    
-                }
-                .disabled(noteBackground.customImage == nil && customImage == nil)
-                .foregroundStyle(Color.accentColor)
             }
             .padding(.horizontal)
             if !showPreview{
@@ -132,34 +117,6 @@ struct CreateThemeView: View {
     }
 }
 
-extension CreateThemeView{
-    func save() async{
-        if let customImage{
-            do {
-                noteBackground.customImage = noteBackground.id
-                modelContext.insert(noteBackground)
-                try modelContext.save()
-                dismiss()
-            } catch ImageError.imageDataConversion {
-                self.errorMessage = "An error occurred while processing the image"
-                self.showAlert.toggle()
-            } catch ImageError.fileWrite{
-                self.errorMessage = "An error occurred while saving the image"
-                self.showAlert.toggle()
-            } catch {
-                self.errorMessage = "Something went wrong"
-                self.showAlert.toggle()
-            }
-        }
-    }
-    
-    func close(){
-        if noteBackground.customImage == nil && customImage == nil{
-            modelContext.delete(noteBackground)
-        }
-        dismiss()
-    }
-}
 
 #Preview {
     NavigationStack{
