@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+extension String{
+    mutating func removeSpaces() -> String{
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+}
