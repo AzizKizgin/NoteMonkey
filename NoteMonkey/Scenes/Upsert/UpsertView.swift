@@ -46,7 +46,7 @@ struct UpsertView: View {
                     .font(.title3)
                     .autocorrectionDisabled()
                     .background{
-                        if(isFocused != .content && note.content.isEmpty){
+                        if(isFocused != .content && note.content.isEmpty && note.deletedAt == nil){
                             Text("Start to write")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                                 .font(.title3)
