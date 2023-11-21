@@ -15,15 +15,20 @@ struct SearchBar: View {
        HStack{
             HStack{
                 Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.white.opacity(0.6))
                 TextField(text: $text){
                     Text(placeHolder ?? "Search...")
                         .foregroundStyle(.white.opacity(0.6))
                 }
                 .focused($isFocused)
                 .font(.system(size: 16))
-                .foregroundStyle(.white)
+                if !text.isEmpty {
+                    Image(systemName: "multiply")
+                        .onTapGesture {
+                            text = ""
+                        }
+                }
             }
+            .foregroundStyle(.white)
             .padding(.horizontal,20)
             .padding(.vertical,10)
             .background(Color.accentColor.opacity(0.6))
@@ -43,5 +48,5 @@ struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar(text: .constant("Search"), placeHolder: "Search note")
+    SearchBar(text: .constant(""), placeHolder: "Search note")
 }
