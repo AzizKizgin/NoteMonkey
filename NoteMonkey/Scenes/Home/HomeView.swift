@@ -20,6 +20,7 @@ struct HomeView: View {
     @State var selectedNotes: [String] = []
     @State var isListView: Bool = true
     @State var showList: Bool = true
+    @FocusState var isFocused 
 
     var filteredNotes: [Note] {
         guard !searchText.isEmpty else {return notes}
@@ -28,15 +29,19 @@ struct HomeView: View {
     
     var body: some View {
         VStack{
-            HomeMenu(
-                showSelectionMenu: showSelectionMenu,
-                selectedItemCount: selectedNotes.count,
-                onCancelSelect: onCancelPress,
-                onSelectAll: onSelectAll,
-                onChangeListType: onChangeListType
-            )
+            if !isFocused{
+                HomeMenu(
+                    showSelectionMenu: showSelectionMenu,
+                    selectedItemCount: selectedNotes.count,
+                    onCancelSelect: onCancelPress,
+                    onSelectAll: onSelectAll,
+                    onChangeListType: onChangeListType
+                )
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
             if !showSelectionMenu {
                 SearchBar(text: $searchText, placeHolder: "Search Notes...")
+                    .focused($isFocused)
             }
             ScrollView{
                 if showList {
@@ -105,6 +110,7 @@ struct HomeView: View {
         .animation(.easeInOut(duration: 0.2),value: selectedNotes)
         .animation(.easeInOut(duration: 0.5),value: isListView)
         .animation(.easeInOut(duration: 0.2),value: showSelectionMenu)
+        .animation(.easeInOut,value: isFocused)
         .ignoresSafeArea(edges:.bottom)
         .background(Color.default)
     }

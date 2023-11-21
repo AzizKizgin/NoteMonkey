@@ -14,29 +14,48 @@ var descriptor: FetchDescriptor<NoteBackground> {
     return descriptor
 }
 
-
+enum Field{
+    case content, title
+}
 
 struct UpsertView: View {
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     @Query(descriptor) var backgrounds: [NoteBackground]
     @Bindable var note: Note
     @State private var showBackgroundList: Bool = false
     @State private var selectedBackground: NoteBackground = NoteBackground(id: "0", textColor: "text")
-    @FocusState private var isFocused
+    @FocusState private var isFocused: Field?
     
     var body: some View {
-        NavigationStack{
+        NavigationView{
             VStack{
                 VStack{
-                    TextField("", text: $note.title, prompt: Text("Title")
+                    TextField("", text: $note.title, prompt: isFocused != .title ? Text("Title")
                         .foregroundStyle(Color(hex:selectedBackground.textColor).opacity(0.5))
-                        .bold())
+                        .bold(): nil)
+                    .focused($isFocused, equals: .title)
                     .foregroundStyle(Color(hex: selectedBackground.textColor))
                     .font(.title)
                     .bold()
-                    ContentEditor(text: $note.content,isFocused: isFocused, textColor:Color(hex:selectedBackground.textColor))
-                        .focused($isFocused)
+                    TextEditor(text: $note.content)
+                        .focused($isFocused,equals: .content)
+                        .scrollContentBackground(.hidden)
+                        .foregroundStyle(Color(hex: selectedBackground.textColor))
+                        .background(.clear)
+                        .font(.title3)
+                        .autocorrectionDisabled()
+                        .background{
+                            if(isFocused != .content && note.content.isEmpty){
+                                Text("Start to write")
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                    .font(.title3)
+                                    .padding(.top,8)
+                                    .padding(.leading,5)
+                                    .foregroundStyle(Color(hex: selectedBackground.textColor).opacity(0.5))
+                            }
+                        }
                 }
                 .padding()
                 .onTapGesture {
@@ -60,10 +79,20 @@ struct UpsertView: View {
                 })
                 ToolbarItem(placement:.topBarTrailing){
                     HStack(spacing:20){
-                        ShareNoteButton(title: note.title, content: note.content)
-                            .disabled(note.content.isEmpty && note.title.isEmpty)
-                        MenuButton(iconName: "paintbrush", onPress: toggleBackgroundList, size: 20)
-                        MenuButton(iconName: "trash", onPress: onDelete, size: 20)
+                        if isFocused != nil{
+                            Button(action: {isFocused = nil}, label: {
+                                Text("Done")
+                                    .font(.system(size: 20))
+                                    .foregroundStyle(Color.accentColor)
+                            })
+                            .buttonStyle(.plain)
+                        }
+                        else{
+                            ShareNoteButton(title: note.title, content: note.content)
+                                .disabled(note.content.isEmpty && note.title.isEmpty)
+                            MenuButton(iconName: "paintbrush", onPress: toggleBackgroundList, size: 20)
+                            MenuButton(iconName: "trash", onPress: onDelete, size: 20)
+                        }
                     }
                     .padding(.horizontal)
                 }
@@ -95,7 +124,7 @@ extension UpsertView{
     }
     
     private func close(){
-        if note.title.isEmpty && note.content.isEmpty{
+        if note.title.removeSpaces().isEmpty && note.content.removeSpaces().isEmpty{
             modelContext.delete(note)
         }
         dismiss()
@@ -107,7 +136,7 @@ extension UpsertView{
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: NoteBackground.self, configurations: config)
 
-        let background = NoteBackground(id: "0", image: "bird",createdAt: Date.now.addingTimeInterval(2*100))
+        let background = NoteBackground(id: "0", image: "bird", textColor: "#000",createdAt: Date.now.addingTimeInterval(2*100))
         container.mainContext.insert(background)
             
         let background2 = NoteBackground(id: "1", color: "#223233", textColor: "#000", createdAt: Date.now.addingTimeInterval(2*100))
