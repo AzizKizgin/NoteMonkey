@@ -14,12 +14,12 @@ var descriptor: FetchDescriptor<NoteBackground> {
     return descriptor
 }
 
-enum Field{
-    case content, title
-}
+
 
 struct UpsertView: View {
-
+    enum Field{
+        case content, title
+    }
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     @Query(descriptor) var backgrounds: [NoteBackground]
@@ -31,37 +31,37 @@ struct UpsertView: View {
     var body: some View {
         NavigationView{
             VStack{
-                VStack{
-                    TextField("", text: $note.title, prompt: isFocused != .title ? Text("Title")
-                        .foregroundStyle(Color(hex:selectedBackground.textColor).opacity(0.5))
-                        .bold(): nil)
-                    .focused($isFocused, equals: .title)
+                TextField("", text: $note.title, prompt: isFocused != .title ? Text("Title")
+                    .foregroundStyle(Color(hex:selectedBackground.textColor).opacity(0.5))
+                    .bold(): nil)
+                .focused($isFocused, equals: .title)
+                .foregroundStyle(Color(hex: selectedBackground.textColor))
+                .font(.title)
+                .bold()
+                TextEditor(text: $note.content)
+                    .focused($isFocused,equals: .content)
+                    .scrollContentBackground(.hidden)
                     .foregroundStyle(Color(hex: selectedBackground.textColor))
-                    .font(.title)
-                    .bold()
-                    TextEditor(text: $note.content)
-                        .focused($isFocused,equals: .content)
-                        .scrollContentBackground(.hidden)
-                        .foregroundStyle(Color(hex: selectedBackground.textColor))
-                        .background(.clear)
-                        .font(.title3)
-                        .autocorrectionDisabled()
-                        .background{
-                            if(isFocused != .content && note.content.isEmpty){
-                                Text("Start to write")
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                                    .font(.title3)
-                                    .padding(.top,8)
-                                    .padding(.leading,5)
-                                    .foregroundStyle(Color(hex: selectedBackground.textColor).opacity(0.5))
-                            }
+                    .background(.clear)
+                    .font(.title3)
+                    .autocorrectionDisabled()
+                    .background{
+                        if(isFocused != .content && note.content.isEmpty){
+                            Text("Start to write")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                .font(.title3)
+                                .padding(.top,8)
+                                .padding(.leading,5)
+                                .foregroundStyle(Color(hex: selectedBackground.textColor).opacity(0.5))
                         }
-                }
-                .padding()
-                .onTapGesture {
-                    showBackgroundList = false
-                }
+                    }
             }
+            .disabled(note.deletedAt != nil)
+            .padding()
+            .onTapGesture {
+                showBackgroundList = false
+            }
+            
             .backgroundPickerList(with: $selectedBackground, isVisible: showBackgroundList)
             .noteItemBackground(with: selectedBackground.id ,isFullScreen: true)
             .animation(.easeIn(duration: 0.2), value: showBackgroundList)
@@ -95,6 +95,7 @@ struct UpsertView: View {
                         }
                     }
                     .padding(.horizontal)
+                    .disabled(note.deletedAt != nil)
                 }
             }
             .onAppear{
@@ -131,19 +132,19 @@ extension UpsertView{
     }
 }
 
-#Preview {    
+#Preview {
     MainActor.assumeIsolated{
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: NoteBackground.self, configurations: config)
-
+        
         let background = NoteBackground(id: "0", image: "bird", textColor: "#000",createdAt: Date.now.addingTimeInterval(2*100))
         container.mainContext.insert(background)
-            
+        
         let background2 = NoteBackground(id: "1", color: "#223233", textColor: "#000", createdAt: Date.now.addingTimeInterval(2*100))
         container.mainContext.insert(background2)
         
-        return UpsertView(note: Note())
-        .modelContainer(container)
-}
-  
+        return UpsertView(note: Note(isDeleted: true,deletedAt: .now))
+            .modelContainer(container)
+    }
+    
 }
