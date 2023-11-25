@@ -3,6 +3,8 @@
 Note Monkey – Your Ultimate Note-Taking Companion!
 Note Monkey is the epitome of simplicity and functionality, crafted with SwiftUI and SwiftData to provide a seamless note-taking experience on the cutting-edge iOS 17. Unleash your creativity and stay organized with Note Monkey's unique features.
 
+You can download it from [**_App Store_**](https://apps.apple.com/us/app/monkey-note/id6472617315)
+
 Key Features:
 
 📝 Versatile Note-Taking: Effortlessly jot down your thoughts, ideas, and to-dos with Note Monkey's user-friendly interface. Swiftly create and organize your notes for a clutter-free digital workspace.
